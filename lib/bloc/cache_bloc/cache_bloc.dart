@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:links_app/repositories/cache_repository.dart';
+import 'package:links_app/repositories/cache_repository/cache_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'cache_bloc_event.dart';

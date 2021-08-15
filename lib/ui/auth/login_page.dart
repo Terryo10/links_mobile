@@ -235,43 +235,63 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-        body: Container(
-      height: height,
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-              top: -height * .15,
-              right: -MediaQuery.of(context).size.width * .4,
-              child: BezierContainer()),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: height * .2),
-                  _title(context),
-                  SizedBox(height: 50),
-                  _emailPasswordWidget(),
-                  SizedBox(height: 20),
-                  _submitButton(context),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    alignment: Alignment.centerRight,
-                    child: Text('Forgot Password ?',
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w500)),
+        body: BlocListener<AuthenticationBloc, AuthenticationState>(
+      listener: (context, state) {
+        if (state is AuthenticationErrorState) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Failed To Login Please Try Again')));
+        }
+      },
+      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, state) {
+          return Container(
+            height: height,
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                    top: -height * .15,
+                    right: -MediaQuery.of(context).size.width * .4,
+                    child: BezierContainer()),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(height: height * .2),
+                        _title(context),
+                        SizedBox(height: 50),
+                        _emailPasswordWidget(),
+                        SizedBox(height: 20),
+                        (state is AuthenticationLoadingState)
+                            ? SizedBox(
+                                child: CircularProgressIndicator(
+                                    color: Color(0xfff7892b)),
+                                height: 30.0,
+                                width: 30.0,
+                              )
+                            : _submitButton(context),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          alignment: Alignment.centerRight,
+                          child: Text('Forgot Password ?',
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w500)),
+                        ),
+                        SizedBox(height: height * .055),
+                        _createAccountLabel(context),
+                      ],
+                    ),
                   ),
-                  SizedBox(height: height * .055),
-                  _createAccountLabel(context),
-                ],
-              ),
+                ),
+                Positioned(top: 40, left: 0, child: _backButton(context)),
+              ],
             ),
-          ),
-          Positioned(top: 40, left: 0, child: _backButton(context)),
-        ],
+          );
+        },
       ),
     ));
   }
@@ -294,39 +314,6 @@ Widget _backButton(BuildContext context) {
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
         ],
       ),
-    ),
-  );
-}
-
-Widget _divider() {
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 10),
-    child: Row(
-      children: <Widget>[
-        SizedBox(
-          width: 20,
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Divider(
-              thickness: 1,
-            ),
-          ),
-        ),
-        Text('or'),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Divider(
-              thickness: 1,
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 20,
-        ),
-      ],
     ),
   );
 }
@@ -370,6 +357,7 @@ Widget _title(BuildContext context) {
     text: TextSpan(
         text: 'L',
         style: GoogleFonts.portLligatSans(
+          // ignore: deprecated_member_use
           textStyle: Theme.of(context).textTheme.display1,
           fontSize: 30,
           fontWeight: FontWeight.w700,

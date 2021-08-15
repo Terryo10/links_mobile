@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:links_app/ui/auth/login_page.dart';
 import 'package:links_app/ui/widgets/beizer_container.dart';
 
+
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
@@ -12,6 +13,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final usernameController = TextEditingController();
+  final nameContoller = TextEditingController();
   final passwordController = TextEditingController();
   bool _pass = false;
   bool _mail = false;
@@ -19,6 +21,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _emptyPass = false;
   bool _passwordVisible = false;
   bool _hidePassword = true;
+  bool emptyName = false;
 
   bool _validateEmail() {
     var reg = RegExp(
@@ -44,6 +47,158 @@ class _SignUpPageState extends State<SignUpPage> {
       print('Invalid pass');
       return false;
     }
+  }
+
+  bool _validateUserName() {
+    if (nameContoller.text.isEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Widget _passwordField(String title, {bool isPassword = false}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          TextField(
+            controller: passwordController,
+            obscureText: _hidePassword,
+            decoration: InputDecoration(
+                errorText: _pass
+                    ? 'Password too short'
+                    : _emptyPass
+                        ? 'Please Fill Me In '
+                        : null,
+                border: InputBorder.none,
+                fillColor: Color(0xfff3f3f4),
+                filled: true,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _passwordVisible = !_passwordVisible;
+                      _hidePassword = !_hidePassword;
+                    });
+                  },
+                )),
+            onChanged: (value) {
+              _validatePassword();
+              setState(() {
+                _emptyPass = false;
+              });
+              if (value.isEmpty) {
+                setState(() {
+                  _pass = false;
+                });
+              } else {
+                if (_validatePassword() == false) {
+                  setState(() {
+                    _pass = true;
+                  });
+                } else {
+                  setState(() {
+                    _pass = false;
+                  });
+                }
+              }
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _emailField(String title, {bool isPassword = false}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          TextFormField(
+              controller: usernameController,
+              keyboardType: TextInputType.emailAddress,
+              obscureText: isPassword,
+              decoration: InputDecoration(
+                  errorText: _mail
+                      ? 'Invalid email'
+                      : _emptyEmail
+                          ? 'Please Fill Me In'
+                          : null,
+                  border: InputBorder.none,
+                  fillColor: Color(0xfff3f3f4),
+                  filled: true),
+              onChanged: (value) {
+                _validateEmail();
+                setState(() {
+                  _emptyEmail = false;
+                });
+                if (value.isEmpty) {
+                  setState(() {
+                    _mail = false;
+                  });
+                } else {
+                  if (_validateEmail() == false) {
+                    setState(() {
+                      _mail = true;
+                    });
+                  } else {
+                    setState(() {
+                      _mail = false;
+                    });
+                  }
+                }
+              })
+        ],
+      ),
+    );
+  }
+
+  Widget _entryField(String title, {bool isPassword = false}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          TextField(
+              controller: nameContoller,
+              obscureText: isPassword,
+              onChanged: (value) {
+                _validateUserName();
+              },
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  fillColor: Color(0xfff3f3f4),
+                  filled: true))
+        ],
+      ),
+    );
   }
 
   @override
@@ -106,30 +261,6 @@ class _SignUpPageState extends State<SignUpPage> {
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _entryField(String title, {bool isPassword = false}) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextField(
-              obscureText: isPassword,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
-                  filled: true))
-        ],
       ),
     );
   }
@@ -198,6 +329,7 @@ class _SignUpPageState extends State<SignUpPage> {
       text: TextSpan(
           text: 'l',
           style: GoogleFonts.portLligatSans(
+            // ignore: deprecated_member_use
             textStyle: Theme.of(context).textTheme.display1,
             fontSize: 30,
             fontWeight: FontWeight.w700,
@@ -220,8 +352,8 @@ class _SignUpPageState extends State<SignUpPage> {
     return Column(
       children: <Widget>[
         _entryField("Username"),
-        _entryField("Email id"),
-        _entryField("Password", isPassword: true),
+        _emailField("Email id"),
+        _passwordField("Password", isPassword: true),
       ],
     );
   }
