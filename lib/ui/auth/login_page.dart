@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:links_app/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:links_app/ui/auth/sign_up_page.dart';
+import 'package:links_app/ui/home_page.dart';
 import 'package:links_app/ui/widgets/beizer_container.dart';
 
 class LoginPage extends StatefulWidget {
@@ -240,8 +241,15 @@ class _LoginPageState extends State<LoginPage> {
         body: BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         if (state is AuthenticationErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Failed To Login Please Try Again')));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              // ignore: unnecessary_null_comparison
+              content: Text(state.message.replaceAll('Exception', ''))));
+        }
+
+        if(state is AuthenticationAuthenticatedState) {
+          //navigate to the home page 
+           Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
         }
       },
       child: BlocBuilder<AuthenticationBloc, AuthenticationState>(

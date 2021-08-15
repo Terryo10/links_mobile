@@ -4,17 +4,23 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:links_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:links_app/repositories/cache_repository/cache_repository.dart';
 
+import 'repositories/authentication_repository/authentication_provider.dart';
+
 class AppRespositories extends StatelessWidget {
   final Widget appBlocs;
   final FlutterSecureStorage storage;
-  const AppRespositories({required this.appBlocs, required this.storage}) : super();
+  const AppRespositories({required this.appBlocs, required this.storage})
+      : super();
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(providers: [
-      RepositoryProvider(create: (context) => AuthenticationRepository(),),
-      RepositoryProvider(create: (context)=>CacheRepository(storage: storage))
-
+      RepositoryProvider(
+        create: (context) => AuthenticationRepository(
+          provider: AuthenticationProvider(storage: storage),
+        ),
+      ),
+      RepositoryProvider(create: (context) => CacheRepository(storage: storage))
     ], child: appBlocs);
   }
 }

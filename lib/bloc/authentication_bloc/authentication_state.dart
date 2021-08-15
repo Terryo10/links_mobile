@@ -7,10 +7,10 @@ class AuthenticationInitial extends AuthenticationState {}
 
 class AuthenticationLoadingState extends AuthenticationState {}
 
-class AuthenticationAuthenticatedState extends AuthenticationState {
-  final String token;
+class AuthenticationAuthenticatedState extends AuthenticationState{
+  final AuthenticationModel authenticationModel;
 
-  AuthenticationAuthenticatedState({required this.token});
+  AuthenticationAuthenticatedState({required this.authenticationModel});
 }
 
 class AuthenticationErrorState extends AuthenticationState{

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:links_app/bloc/cache_bloc/cache_bloc.dart';
 import 'package:links_app/ui/auth/welcome.dart';
+import 'package:links_app/ui/home_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,7 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
               return WelcomePage();
             } else if (state is CacheFoundState) {
               // user is authenticated
-              return Container();
+              print('found token');
+              return HomePage();
             }
             return Container();
           },
