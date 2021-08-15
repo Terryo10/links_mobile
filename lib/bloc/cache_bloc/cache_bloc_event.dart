@@ -1,4 +1,6 @@
-part of 'cache_bloc_bloc.dart';
+part of 'cache_bloc.dart';
 
 @immutable
 abstract class CacheBlocEvent {}
+
+class AppStartedEvent extends CacheBlocEvent{}
