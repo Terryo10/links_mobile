@@ -22,3 +22,5 @@ class RegistrationButtonPressedEvent extends AuthenticationEvent {
       required this.name,
       required this.confirmPassword});
 }
+
+class  AppLogoutEvent extends AuthenticationEvent{}
