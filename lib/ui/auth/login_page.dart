@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:links_app/bloc/authentication_bloc/authentication_bloc.dart';
+import 'package:links_app/bloc/welcome_bloc/welcome_bloc.dart';
 import 'package:links_app/ui/auth/sign_up_page.dart';
 import 'package:links_app/ui/home_page.dart';
 import 'package:links_app/ui/widgets/beizer_container.dart';
@@ -245,15 +246,13 @@ class _LoginPageState extends State<LoginPage> {
               // ignore: unnecessary_null_comparison
               content: Text(state.message.replaceAll('Exception', ''))));
         }
-
-        if(state is AuthenticationAuthenticatedState) {
-          //navigate to the home page 
-           Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
-        }
       },
       child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
+          if (state is AuthenticationAuthenticatedState) {
+            print('authenticated ');
+            return HomePage();
+          }
           return Container(
             height: height,
             child: Stack(
@@ -308,7 +307,7 @@ class _LoginPageState extends State<LoginPage> {
 Widget _backButton(BuildContext context) {
   return InkWell(
     onTap: () {
-      Navigator.pop(context);
+      BlocProvider.of<WelcomeBloc>(context).add(WelcomeResetEvent());
     },
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -329,8 +328,7 @@ Widget _backButton(BuildContext context) {
 Widget _createAccountLabel(BuildContext context) {
   return InkWell(
     onTap: () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SignUpPage()));
+      BlocProvider.of<WelcomeBloc>(context).add(WelcomeRegisterEvent());
     },
     child: Container(
       margin: EdgeInsets.symmetric(vertical: 20),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:links_app/bloc/welcome_bloc/welcome_bloc.dart';
 import 'package:links_app/ui/auth/login_page.dart';
 import 'package:links_app/ui/widgets/beizer_container.dart';
 
@@ -247,7 +249,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _backButton(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pop(context);
+        BlocProvider.of<WelcomeBloc>(context).add(WelcomeResetEvent());
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -293,8 +295,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _loginAccountLabel(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+       BlocProvider.of<WelcomeBloc>(context).add(WelcomeLoginEvent());
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:links_app/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:links_app/bloc/user_bloc/user_bloc.dart';
+import 'package:links_app/bloc/welcome_bloc/welcome_bloc.dart';
 import 'package:links_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:links_app/repositories/cache_repository/cache_repository.dart';
 
@@ -31,6 +32,10 @@ class AppBlocs extends StatelessWidget {
             cacheBloc: BlocProvider.of<CacheBloc>(context),
           ),
           lazy: false,
+        ),
+
+        BlocProvider(
+          create: (context) => WelcomeBloc(),
         ),
         BlocProvider(
           create: (context) => UserBloc(),
