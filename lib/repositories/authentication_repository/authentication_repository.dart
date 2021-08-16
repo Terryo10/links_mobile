@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:links_app/models/authentication_model.dart';
+import 'package:links_app/models/auth_model/authentication_model.dart';
 import 'package:links_app/repositories/authentication_repository/authentication_provider.dart';
 
 class AuthenticationRepository{
@@ -11,6 +11,10 @@ class AuthenticationRepository{
   Future<AuthenticationModel> login({required String password, required String email})async{
     var data =await provider.login(password: password, email: email);
     return authenticationModelFromJson(data);
+  }
+
+  Future logout()async{
+    await provider.logout();
   }
   
 }
