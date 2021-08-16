@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:links_app/bloc/authentication_bloc/authentication_bloc.dart';
+import 'package:links_app/bloc/welcome_bloc/welcome_bloc.dart';
 import 'package:links_app/ui/auth/welcome.dart';
 
 class LogoutPopup extends StatefulWidget {
@@ -38,8 +39,9 @@ class _LogoutPopupState extends State<LogoutPopup> {
                   onPressed: () {
                     BlocProvider.of<AuthenticationBloc>(context)
                         .add(AppLogoutEvent());
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => WelcomePage()));
+                    BlocProvider.of<WelcomeBloc>(context)
+                        .add(WelcomeResetEvent());
+                    Navigator.of(context).pop();
                   },
                 ),
                 _alertButton(
