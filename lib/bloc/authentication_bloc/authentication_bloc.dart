@@ -45,5 +45,9 @@ class AuthenticationBloc
         yield AuthenticationErrorState(message: e.toString());
       }
     }
+
+    if (event is RegistrationButtonPressedEvent){
+      print('yesaya reg');
+    }
   }
 }

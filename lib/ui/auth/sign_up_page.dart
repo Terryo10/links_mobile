@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:links_app/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:links_app/bloc/welcome_bloc/welcome_bloc.dart';
 import 'package:links_app/ui/auth/login_page.dart';
 import 'package:links_app/ui/widgets/beizer_container.dart';
@@ -194,13 +195,50 @@ class _SignUpPageState extends State<SignUpPage> {
               onChanged: (value) {
                 _validateUserName();
               },
+               
               decoration: InputDecoration(
+                errorText:emptyName
+                        ? 'Please Fill Me In '
+                        : null,
                   border: InputBorder.none,
                   fillColor: Color(0xfff3f3f4),
                   filled: true))
         ],
       ),
     );
+  }
+  _onRegisterButtonPressed(){
+        FocusScope.of(context).unfocus();
+    if (_validateEmail() &&
+        _validatePassword() &&
+        (usernameController.text.isNotEmpty &&
+            passwordController.text.isNotEmpty)) {
+      BlocProvider.of<AuthenticationBloc>(context).add(
+        RegistrationButtonPressedEvent(
+            password: passwordController.text, email: usernameController.text, name:nameContoller.text, confirmPassword: passwordController.text,),
+      );
+    } else if (usernameController.text.isEmpty &&
+        passwordController.text.isEmpty && nameContoller.text.isEmpty) {
+      setState(() {
+        _emptyEmail = true;
+        _emptyPass = true;
+        emptyName = true;
+      });
+    } else if (usernameController.text.isEmpty) {
+      setState(() {
+        _emptyEmail = true;
+      });
+    } else if (passwordController.text.isEmpty) {
+      setState(() {
+        _emptyPass = true;
+      });
+    } else if(nameContoller.text.isEmpty){
+       setState(() {
+        emptyName = true;
+      });
+    }else {
+      print('we did not expect the error ');
+    }
   }
 
   @override
@@ -268,26 +306,31 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _submitButton(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.grey.shade200,
-                offset: Offset(2, 4),
-                blurRadius: 5,
-                spreadRadius: 2)
-          ],
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-      child: Text(
-        'Register Now',
-        style: TextStyle(fontSize: 20, color: Colors.white),
+    return InkWell(
+      onTap:(){
+        _onRegisterButtonPressed();
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 15),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: Colors.grey.shade200,
+                  offset: Offset(2, 4),
+                  blurRadius: 5,
+                  spreadRadius: 2)
+            ],
+            gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+        child: Text(
+          'Register Now',
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        ),
       ),
     );
   }
