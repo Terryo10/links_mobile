@@ -16,5 +16,10 @@ class AuthenticationRepository{
   Future logout()async{
     await provider.logout();
   }
+
+  Future<AuthenticationModel> register({required String name,required String password, required String email})async{
+    var data =await provider.register(password: password, email: email, name: name);
+    return authenticationModelFromJson(data);
+  }
   
 }
