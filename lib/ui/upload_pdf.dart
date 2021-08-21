@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
 class UploadPdF extends StatefulWidget {
-  const UploadPdF({ Key? key }) : super(key: key);
+  const UploadPdF({Key? key}) : super(key: key);
 
   @override
   _UploadPdFState createState() => _UploadPdFState();
 }
 
 class _UploadPdFState extends State<UploadPdF> {
+  String tit = 'Uploading....';
 
-    String tit = 'Uploading....';
   String sub = 'Please wait a moment while we upload your files.';
+
   @override
   Widget build(BuildContext context) {
-      return Scaffold(
+    return Scaffold(
         floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  
-                },
-                backgroundColor: Colors.amber,
-                child: Icon(
-                  Icons.add,
-                  color: Colors.black,
-                ),
-              )
-            ,
+          onPressed: () {
+            onUploadPDF();
+          },
+          backgroundColor: Colors.amber,
+          child: Icon(
+            Icons.add,
+            color: Colors.black,
+          ),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         backgroundColor: Colors.white,
         body: Column(
@@ -68,5 +69,18 @@ class _UploadPdFState extends State<UploadPdF> {
           ],
         ));
   }
-  
+
+  void onUploadPDF() async {
+    print('uploading pdf');
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(allowedExtensions: ['pdf']);
+
+    if (result != null) {
+      print('picked a file');
+      // File file = File(result.files.single.path);
+    } else {
+      print('user cancelleed picking ');
+      // User canceled the picker
+    }
+  }
 }

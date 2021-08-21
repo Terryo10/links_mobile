@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:links_app/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:links_app/bloc/welcome_bloc/welcome_bloc.dart';
-import 'package:links_app/ui/auth/sign_up_page.dart';
+
 import 'package:links_app/ui/home_page.dart';
 import 'package:links_app/ui/widgets/beizer_container.dart';
 
