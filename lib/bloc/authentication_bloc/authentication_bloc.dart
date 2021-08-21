@@ -45,5 +45,19 @@ class AuthenticationBloc
         yield AuthenticationErrorState(message: e.toString());
       }
     }
+
+    if (event is RegistrationButtonPressedEvent){
+      print('yesaya reg');
+      try{
+        FlutterSecureStorage storage = FlutterSecureStorage();
+        var loginResponse = await authenticationRepository.register(
+            password: event.password, email: event.email, name: event.name);
+        storage.write(key: 'token', value: loginResponse.token);
+        yield AuthenticationAuthenticatedState(
+            authenticationModel: loginResponse);
+      } catch (e) {
+        yield AuthenticationErrorState(message: e.toString());
+      }
+    }
   }
 }
