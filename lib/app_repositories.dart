@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:links_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:links_app/repositories/cache_repository/cache_repository.dart';
+import 'package:links_app/repositories/pdf_repository/pdf_provider.dart';
+import 'package:links_app/repositories/pdf_repository/pdf_repository.dart';
 
 import 'repositories/authentication_repository/authentication_provider.dart';
 
@@ -20,7 +22,12 @@ class AppRespositories extends StatelessWidget {
           provider: AuthenticationProvider(storage: storage),
         ),
       ),
-      RepositoryProvider(create: (context) => CacheRepository(storage: storage))
+      RepositoryProvider(
+        create: (context) => CacheRepository(storage: storage),
+      ),
+      RepositoryProvider(
+          create: (context) =>
+              PDFRepository(storage: storage, provider: PDFProvider()))
     ], child: appBlocs);
   }
 }

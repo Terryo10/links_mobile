@@ -6,8 +6,10 @@ import 'package:links_app/bloc/user_bloc/user_bloc.dart';
 import 'package:links_app/bloc/welcome_bloc/welcome_bloc.dart';
 import 'package:links_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:links_app/repositories/cache_repository/cache_repository.dart';
+import 'package:links_app/repositories/pdf_repository/pdf_repository.dart';
 
 import 'bloc/cache_bloc/cache_bloc.dart';
+import 'bloc/pdf_bloc/pdf_bloc.dart';
 
 class AppBlocs extends StatelessWidget {
   final Widget app;
@@ -39,6 +41,9 @@ class AppBlocs extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => UserBloc(),
+        ),
+         BlocProvider(
+          create: (context) => PdfBloc(pdfRepository: RepositoryProvider.of<PDFRepository>(context),),
         ),
       ],
       child: app,
