@@ -10,7 +10,7 @@ class PDFProvider {
   PDFProvider();
   Future upload({required File selectedfile, required token}) async {
     var url = '${AppStrings.baseUrl}${AppStrings.cvUrl}';
-
+    print(token);
     try {
       print(url);
       var response = http.MultipartRequest(
@@ -21,6 +21,9 @@ class PDFProvider {
         "Authorization": "Bearer $token",
         "Content-type": "multipart/form-data"
       };
+
+      response.headers['Authorization'] = 'Bearer $token';
+      response.headers['content-type'] = 'application/json';
       response.files.add(
         http.MultipartFile(
           'file',
@@ -31,14 +34,17 @@ class PDFProvider {
         ),
       );
       var res = await response.send();
+      final k = await http.Response.fromStream(res);
+      print(k.body);
       print(res.headers);
       print(res.statusCode);
-      if (res.statusCode == 200) {
-        print(res.toString());
-        return res;
-        //print response from server
+      if (k.statusCode == 200) {
+        print(k.body);
+        return k.body;
       } else {
-        throw Exception(res);
+        var decoded = jsonDecode(k.body);
+        var message = decoded['message'];
+        throw Exception(message);
       }
     } catch (e) {
       throw Exception(e.toString());

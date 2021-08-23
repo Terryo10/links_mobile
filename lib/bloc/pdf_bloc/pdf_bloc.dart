@@ -28,5 +28,9 @@ class PdfBloc extends Bloc<PdfEvent, PdfState> {
         yield PDFErrorState(e.toString());
       }
     }
+
+    if (event is ResetPdfEvent) {
+      yield PdfInitial();
+    }
   }
 }

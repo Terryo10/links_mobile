@@ -9,6 +9,8 @@ class UploadPDFEvent extends PdfEvent {
   UploadPDFEvent({required this.pdfFile});
 }
 
-class DeletePDF extends PdfEvent {}
+class DeletePDFEvent extends PdfEvent {}
 
-class GetUserPdf extends PdfEvent {}
+class GetUserPdfEvent extends PdfEvent {}
+
+class ResetPdfEvent extends PdfEvent{}
