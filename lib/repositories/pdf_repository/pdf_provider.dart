@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
+
 import 'package:links_app/data/strings.dart';
-import 'package:path/path.dart';
+
 import 'package:http/http.dart' as http;
 
 class PDFProvider {

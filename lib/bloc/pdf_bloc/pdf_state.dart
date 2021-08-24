@@ -9,7 +9,7 @@ class PDFUploadingState extends PdfState {}
 
 class PDFUploadedState extends PdfState {
   final MessageModel messageModel;
-
+  
   PDFUploadedState({required this.messageModel});
 }
 

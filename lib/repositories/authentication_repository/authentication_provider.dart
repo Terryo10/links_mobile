@@ -36,11 +36,18 @@ class AuthenticationProvider {
     await storage.deleteAll();
   }
 
-  Future register({required String name,required String password, required String email}) async {
-    String url = '${AppStrings.baseUrl}${AppStrings.loginUrl}';
+  Future register(
+      {required String name,
+      required String password,
+      required String email}) async {
+    String url = '${AppStrings.baseUrl}${AppStrings.registerUrl}';
     print(url);
-    var body =
-        jsonEncode(<String, String>{'email': email, 'password': password, 'confirm_password' : password});
+    var body = jsonEncode(<String, String>{
+      'name': name,
+      'email': email,
+      'password': password,
+      'confirm_password': password
+    });
     var headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };

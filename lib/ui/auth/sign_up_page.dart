@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:links_app/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:links_app/bloc/welcome_bloc/welcome_bloc.dart';
+import 'package:links_app/ui/home_page.dart';
 
 import 'package:links_app/ui/widgets/beizer_container.dart';
-
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -195,11 +195,8 @@ class _SignUpPageState extends State<SignUpPage> {
               onChanged: (value) {
                 _validateUserName();
               },
-               
               decoration: InputDecoration(
-                errorText:emptyName
-                        ? 'Please Fill Me In '
-                        : null,
+                  errorText: emptyName ? 'Please Fill Me In ' : null,
                   border: InputBorder.none,
                   fillColor: Color(0xfff3f3f4),
                   filled: true))
@@ -207,18 +204,24 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
-  _onRegisterButtonPressed(){
-        FocusScope.of(context).unfocus();
+
+  _onRegisterButtonPressed() {
+    FocusScope.of(context).unfocus();
     if (_validateEmail() &&
         _validatePassword() &&
         (usernameController.text.isNotEmpty &&
             passwordController.text.isNotEmpty)) {
       BlocProvider.of<AuthenticationBloc>(context).add(
         RegistrationButtonPressedEvent(
-            password: passwordController.text, email: usernameController.text, name:nameContoller.text, confirmPassword: passwordController.text,),
+          password: passwordController.text,
+          email: usernameController.text,
+          name: nameContoller.text,
+          confirmPassword: passwordController.text,
+        ),
       );
     } else if (usernameController.text.isEmpty &&
-        passwordController.text.isEmpty && nameContoller.text.isEmpty) {
+        passwordController.text.isEmpty &&
+        nameContoller.text.isEmpty) {
       setState(() {
         _emptyEmail = true;
         _emptyPass = true;
@@ -232,11 +235,11 @@ class _SignUpPageState extends State<SignUpPage> {
       setState(() {
         _emptyPass = true;
       });
-    } else if(nameContoller.text.isEmpty){
-       setState(() {
+    } else if (nameContoller.text.isEmpty) {
+      setState(() {
         emptyName = true;
       });
-    }else {
+    } else {
       print('we did not expect the error ');
     }
   }
@@ -245,40 +248,64 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Container(
-        height: height,
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              top: -MediaQuery.of(context).size.height * .15,
-              right: -MediaQuery.of(context).size.width * .4,
-              child: BezierContainer(),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(height: height * .2),
-                    _title(context),
-                    SizedBox(
-                      height: 50,
+      body: BlocListener<AuthenticationBloc, AuthenticationState>(
+        listener: (context, state) {
+          if (state is AuthenticationErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                // ignore: unnecessary_null_comparison
+                content: Text(state.message.replaceAll('Exception', ''))));
+          }
+        },
+        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            if (state is AuthenticationAuthenticatedState) {
+              print('authenticated ');
+              return HomePage();
+            }
+            return Container(
+              height: height,
+              child: Stack(
+                children: <Widget>[
+                  Positioned(
+                    top: -MediaQuery.of(context).size.height * .15,
+                    right: -MediaQuery.of(context).size.width * .4,
+                    child: BezierContainer(),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(height: height * .2),
+                          _title(context),
+                          SizedBox(
+                            height: 50,
+                          ),
+                          _emailPasswordWidget(),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          (state is AuthenticationLoadingState)
+                              ? SizedBox(
+                                  child: CircularProgressIndicator(
+                                      color: Color(0xfff7892b)),
+                                  height: 30.0,
+                                  width: 30.0,
+                                )
+                              : _submitButton(context),
+                          // SizedBox(height: height * .5),
+                          _loginAccountLabel(context),
+                        ],
+                      ),
                     ),
-                    _emailPasswordWidget(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _submitButton(context),
-                    SizedBox(height: height * .14),
-                    _loginAccountLabel(context),
-                  ],
-                ),
+                  ),
+                  Positioned(top: 40, left: 0, child: _backButton(context)),
+                ],
               ),
-            ),
-            Positioned(top: 40, left: 0, child: _backButton(context)),
-          ],
+            );
+          },
         ),
       ),
     );
@@ -307,7 +334,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget _submitButton(BuildContext context) {
     return InkWell(
-      onTap:(){
+      onTap: () {
         _onRegisterButtonPressed();
       },
       child: Container(
@@ -338,7 +365,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _loginAccountLabel(BuildContext context) {
     return InkWell(
       onTap: () {
-       BlocProvider.of<WelcomeBloc>(context).add(WelcomeLoginEvent());
+        BlocProvider.of<WelcomeBloc>(context).add(WelcomeLoginEvent());
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20),
