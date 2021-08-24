@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:links_app/bloc/user_bloc/user_bloc.dart';
 import 'package:links_app/models/experties_model/expertise_model.dart';
+import 'package:links_app/models/messsage_model/message.dart';
 import 'package:links_app/repositories/expertise_repository/experties_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -10,7 +12,8 @@ part 'experties_bloc_state.dart';
 
 class ExpertiesBloc extends Bloc<ExpertiesEvent, ExpertiesBlocState> {
   final ExpertiseRepository expertiseRepository;
-  ExpertiesBloc({required this.expertiseRepository})
+  final UserBloc userBloc;
+  ExpertiesBloc({required this.expertiseRepository, required this.userBloc})
       : super(ExpertiesBlocInitial());
 
   @override
@@ -22,6 +25,19 @@ class ExpertiesBloc extends Bloc<ExpertiesEvent, ExpertiesBlocState> {
       try {
         var data = await expertiseRepository.getExpertiesList();
         yield ExpertiseLoadedState(expertiseListModel: data);
+      } catch (e) {
+        yield ExpertiseErrorState(message: e.toString());
+      }
+    }
+
+    if (event is AssignExpertiesToUser) {
+      yield ExpertiseLoadingState();
+      try {
+        var messageModel = await expertiseRepository.selectExperties(
+            expertiseId: event.expertiesId);
+
+        yield ExpertiseUpdatedState(messageModel: messageModel);
+        userBloc.add(GetUserDataEvent());
       } catch (e) {
         yield ExpertiseErrorState(message: e.toString());
       }

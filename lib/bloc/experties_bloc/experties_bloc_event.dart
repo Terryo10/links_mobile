@@ -7,4 +7,8 @@ class FetchExpertiesList extends ExpertiesEvent{}
 
 class ResetExpertiesList extends ExpertiesEvent{}
 
-class AssignExpertiesToUser extends ExpertiesEvent{}
+class AssignExpertiesToUser extends ExpertiesEvent{
+  final expertiesId;
+
+  AssignExpertiesToUser({required this.expertiesId});
+}

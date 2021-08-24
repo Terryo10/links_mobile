@@ -3,11 +3,15 @@ class AppStrings {
 
   static String loginUrl = '/api/login';
 
-   static String registerUrl = '/api/register';
+  static String registerUrl = '/api/register';
 
-  static String cvUrl = '/api/cv_file';// this is  a resource url 
+  static String cvUrl = '/api/cv_file'; // this is  a resource url
 
   static String userData = '/api/get_user_data';
 
   static String expertiseList = '/api/get_expertise';
+
+  static String updateExpertise = '/api/update_user_expertise';
+
+  static String  getJobs ='/api/get_jobs';
 }

@@ -8,10 +8,12 @@ import 'package:links_app/bloc/welcome_bloc/welcome_bloc.dart';
 import 'package:links_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:links_app/repositories/cache_repository/cache_repository.dart';
 import 'package:links_app/repositories/expertise_repository/experties_repository.dart';
+import 'package:links_app/repositories/jobs_repository/jobs_repository.dart';
 import 'package:links_app/repositories/pdf_repository/pdf_repository.dart';
 import 'package:links_app/repositories/user_repository/user_repository.dart';
 
 import 'bloc/cache_bloc/cache_bloc.dart';
+import 'bloc/jobs_bloc/jobs_bloc.dart';
 import 'bloc/pdf_bloc/pdf_bloc.dart';
 
 class AppBlocs extends StatelessWidget {
@@ -25,13 +27,21 @@ class AppBlocs extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (context) => JobsBloc(
+            jobsRepository: RepositoryProvider.of<JobsRepository>(context),
+          ),
+        ),
+        BlocProvider(
           create: (context) => UserBloc(
-              userRepository: RepositoryProvider.of<UserRepository>(context)),
+            userRepository: RepositoryProvider.of<UserRepository>(context),
+            jobsBloc: BlocProvider.of<JobsBloc>(context),
+          ),
         ),
         BlocProvider(
           create: (context) => ExpertiesBloc(
             expertiseRepository:
                 RepositoryProvider.of<ExpertiseRepository>(context),
+            userBloc: BlocProvider.of<UserBloc>(context),
           ),
         ),
         BlocProvider(

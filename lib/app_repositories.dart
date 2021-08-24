@@ -5,6 +5,8 @@ import 'package:links_app/repositories/authentication_repository/authentication_
 import 'package:links_app/repositories/cache_repository/cache_repository.dart';
 import 'package:links_app/repositories/expertise_repository/experties_provider.dart';
 import 'package:links_app/repositories/expertise_repository/experties_repository.dart';
+import 'package:links_app/repositories/jobs_repository/jobs_provider.dart';
+import 'package:links_app/repositories/jobs_repository/jobs_repository.dart';
 import 'package:links_app/repositories/pdf_repository/pdf_provider.dart';
 import 'package:links_app/repositories/pdf_repository/pdf_repository.dart';
 import 'package:links_app/repositories/user_repository/user_provider.dart';
@@ -36,12 +38,19 @@ class AppRespositories extends StatelessWidget {
         ),
       ),
       RepositoryProvider(
-        create: (context) =>
-            PDFRepository(storage: storage, provider: PDFProvider()),
+        create: (context) => PDFRepository(
+          storage: storage,
+          provider: PDFProvider(),
+        ),
       ),
       RepositoryProvider(
         create: (context) => ExpertiseRepository(
           provider: ExpertiseProvider(storage: storage),
+        ),
+      ),
+      RepositoryProvider(
+        create: (context) => JobsRepository(
+          provider: JobsProvider(storage: storage),
         ),
       ),
     ], child: appBlocs);

@@ -255,6 +255,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 // ignore: unnecessary_null_comparison
                 content: Text(state.message.replaceAll('Exception', ''))));
           }
+          if (state is AuthenticationAuthenticatedState) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                // ignore: unnecessary_null_comparison
+                content: Text('Account Created Successfully')));
+          }
         },
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {

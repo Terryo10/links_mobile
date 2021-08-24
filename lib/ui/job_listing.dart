@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:links_app/bloc/jobs_bloc/jobs_bloc.dart';
+import 'package:links_app/models/jobs_model/jobs_model.dart';
+import 'package:links_app/ui/widgets/loader.dart';
 
 class JobsPage extends StatefulWidget {
   JobsPage({Key? key}) : super(key: key);
@@ -10,10 +14,52 @@ class JobsPage extends StatefulWidget {
 class _JobsPageState extends State<JobsPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: Center(
-        child: Text('Jobs List')
-       ),
+    return BlocListener<JobsBloc, JobsState>(
+      listener: (context, state) {
+        
+      },
+      child: BlocBuilder<JobsBloc, JobsState>(
+        builder: (context, state) {
+          if(state is JobsLoadingState){
+            return Loader();
+          }
+          else if(state is JobsLoadedState){
+            return jobsList(jobsModel: state.jobsModel);
+          }
+          else if(state is JobsErrorState){
+            return buildError(context, message: state.message.replaceAll('Exception', ''));
+          }
+          return buildError(context);
+          
+        },
+      ),
+    );
+  }
+
+  Widget jobsList({required JobsModel jobsModel}){
+    return Center(child: Text('jobs List'),);
+  }
+
+  Widget buildError(BuildContext context, {String? message}) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Center(
+            child: RaisedButton(
+          color: Color(0xfff7892b), // backgrounds
+          textColor: Colors.white, // foreground
+          onPressed: () {},
+          child: Text('Retry'),
+        )),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            message ?? ' Oops Something went wrong please retry',
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ],
     );
   }
 }

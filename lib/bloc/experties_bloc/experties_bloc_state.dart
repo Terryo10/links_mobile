@@ -7,6 +7,12 @@ class ExpertiesBlocInitial extends ExpertiesBlocState {}
 
 class ExpertiseLoadingState extends ExpertiesBlocState {}
 
+class ExpertiseUpdatedState extends ExpertiesBlocState {
+  final MessageModel messageModel;
+
+  ExpertiseUpdatedState({required this.messageModel});
+}
+
 class ExpertiseLoadedState extends ExpertiesBlocState {
   final ExpertiseListModel expertiseListModel;
   ExpertiseLoadedState({required this.expertiseListModel});
