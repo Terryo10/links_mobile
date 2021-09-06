@@ -31,10 +31,10 @@ class JobsModel {
 class Job {
     Job({
         this.id,
-        this.organisationId,
         this.name,
         this.type,
-        this.expertisesId,
+        this.expertise,
+        this.organisation,
         this.description,
         this.tasks,
         this.createdAt,
@@ -42,10 +42,10 @@ class Job {
     });
 
     int? id;
-    int? organisationId;
     String? name;
     String? type;
-    int? expertisesId;
+    Expertise? expertise;
+    Organisation? organisation;
     String? description;
     String? tasks;
     DateTime? createdAt;
@@ -53,10 +53,10 @@ class Job {
 
     factory Job.fromJson(Map<String, dynamic> json) => Job(
         id: json["id"] == null ? null : json["id"],
-        organisationId: json["organisation_id"] == null ? null : json["organisation_id"],
         name: json["name"] == null ? null : json["name"],
         type: json["type"] == null ? null : json["type"],
-        expertisesId: json["expertises_id"] == null ? null : json["expertises_id"],
+        expertise: json["expertise"] == null ? null : Expertise.fromJson(json["expertise"]),
+        organisation: json["organisation"] == null ? null : Organisation.fromJson(json["organisation"]),
         description: json["description"] == null ? null : json["description"],
         tasks: json["tasks"] == null ? null : json["tasks"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
@@ -65,12 +65,80 @@ class Job {
 
     Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
-        "organisation_id": organisationId == null ? null : organisationId,
         "name": name == null ? null : name,
         "type": type == null ? null : type,
-        "expertises_id": expertisesId == null ? null : expertisesId,
+        "expertise": expertise == null ? null : expertise!.toJson(),
+        "organisation": organisation == null ? null : organisation!.toJson(),
         "description": description == null ? null : description,
         "tasks": tasks == null ? null : tasks,
+        "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
+        "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
+    };
+}
+
+class Expertise {
+    Expertise({
+        this.id,
+        this.name,
+        this.createdAt,
+        this.updatedAt,
+    });
+
+    int? id;
+    String? name;
+    DateTime? createdAt;
+    DateTime? updatedAt;
+
+    factory Expertise.fromJson(Map<String, dynamic> json) => Expertise(
+        id: json["id"] == null ? null : json["id"],
+        name: json["name"] == null ? null : json["name"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
+        "name": name == null ? null : name,
+        "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
+        "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
+    };
+}
+
+class Organisation {
+    Organisation({
+        this.id,
+        this.name,
+        this.location,
+        this.imagePath,
+        this.numberOfEmployees,
+        this.createdAt,
+        this.updatedAt,
+    });
+
+    int? id;
+    String? name;
+    String? location;
+    String? imagePath;
+    String? numberOfEmployees;
+    DateTime? createdAt;
+    DateTime? updatedAt;
+
+    factory Organisation.fromJson(Map<String, dynamic> json) => Organisation(
+        id: json["id"] == null ? null : json["id"],
+        name: json["name"] == null ? null : json["name"],
+        location: json["Location"] == null ? null : json["Location"],
+        imagePath: json["image_path"] == null ? null : json["image_path"],
+        numberOfEmployees: json["number_of_employees"] == null ? null : json["number_of_employees"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
+        "name": name == null ? null : name,
+        "Location": location == null ? null : location,
+        "image_path": imagePath == null ? null : imagePath,
+        "number_of_employees": numberOfEmployees == null ? null : numberOfEmployees,
         "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
     };

@@ -31,6 +31,7 @@ class Data {
         this.email,
         this.cvFile,
         this.expertise,
+        this.subscription,
         this.createdAt,
         this.updatedAt,
     });
@@ -40,6 +41,7 @@ class Data {
     String? email;
     CvFile? cvFile;
     Expertise? expertise;
+    CvFile? subscription;
     DateTime? createdAt;
     DateTime? updatedAt;
 
@@ -49,6 +51,7 @@ class Data {
         email: json["email"] == null ? null : json["email"],
         cvFile: json["cv_file"] == null ? null : CvFile.fromJson(json["cv_file"]),
         expertise: json["expertise"] == null ? null : Expertise.fromJson(json["expertise"]),
+        subscription: json["subscription"] == null ? null : CvFile.fromJson(json["subscription"]),
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     );
@@ -59,6 +62,7 @@ class Data {
         "email": email == null ? null : email,
         "cv_file": cvFile == null ? null : cvFile!.toJson(),
         "expertise": expertise == null ? null : expertise!.toJson(),
+        "subscription": subscription == null ? null : subscription!.toJson(),
         "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
     };
@@ -71,6 +75,7 @@ class CvFile {
         this.filePath,
         this.createdAt,
         this.updatedAt,
+        this.expiresAt,
     });
 
     int? id;
@@ -78,6 +83,7 @@ class CvFile {
     String? filePath;
     DateTime? createdAt;
     DateTime? updatedAt;
+    DateTime? expiresAt;
 
     factory CvFile.fromJson(Map<String, dynamic> json) => CvFile(
         id: json["id"] == null ? null : json["id"],
@@ -85,6 +91,7 @@ class CvFile {
         filePath: json["file_path"] == null ? null : json["file_path"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        expiresAt: json["expires_at"] == null ? null : DateTime.parse(json["expires_at"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -93,6 +100,7 @@ class CvFile {
         "file_path": filePath == null ? null : filePath,
         "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
+        "expires_at": expiresAt == null ? null : expiresAt!.toIso8601String(),
     };
 }
 

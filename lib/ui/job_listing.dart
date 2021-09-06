@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:links_app/bloc/jobs_bloc/jobs_bloc.dart';
 import 'package:links_app/models/jobs_model/jobs_model.dart';
+import 'package:links_app/ui/single_job_details.dart';
 import 'package:links_app/ui/widgets/loader.dart';
 
 class JobsPage extends StatefulWidget {
@@ -15,29 +16,118 @@ class _JobsPageState extends State<JobsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<JobsBloc, JobsState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       child: BlocBuilder<JobsBloc, JobsState>(
         builder: (context, state) {
-          if(state is JobsLoadingState){
+          if (state is JobsLoadingState) {
             return Loader();
-          }
-          else if(state is JobsLoadedState){
+          } else if (state is JobsLoadedState) {
             return jobsList(jobsModel: state.jobsModel);
-          }
-          else if(state is JobsErrorState){
-            return buildError(context, message: state.message.replaceAll('Exception', ''));
+          } else if (state is JobsErrorState) {
+            return buildError(context,
+                message: state.message.replaceAll('Exception', ''));
           }
           return buildError(context);
-          
         },
       ),
     );
   }
 
-  Widget jobsList({required JobsModel jobsModel}){
-    return Center(child: Text('jobs List'),);
+  Widget jobsList({required JobsModel jobsModel}) {
+    var list = jobsModel.jobs;
+    return ListView.builder(
+        itemCount: list!.length,
+        itemBuilder: (BuildContext context, int index) {
+          return jobCard(job: list[index]);
+        });
+  }
+
+  Widget jobCard({Job? job}) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SingleJobDetails(job!)),
+        );
+      },
+      child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+          side: BorderSide(
+            width: 2,
+            color: Color(0xfff7892b),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: Column(children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                    flex: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          job!.name ?? '',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontFamily: 'CenturyGothicBold',
+                            // fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    )),
+                Expanded(flex: 1, child: Icon(Icons.navigate_next)),
+              ],
+            ),
+            SizedBox(
+              height: 2,
+            ),
+            Row(
+              children: [
+                Expanded(flex: 1, child: Icon(Icons.query_builder)),
+                Expanded(
+                  flex: 4,
+                  child: Text(
+                    job.type ?? '',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontFamily: 'CenturyGothicBold',
+                      // fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(flex: 1, child: Icon(Icons.location_on)),
+                Expanded(
+                  flex: 4,
+                  child: Text(
+                    job.organisation!.location ?? '',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontFamily: 'CenturyGothicBold',
+                      // fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 3,
+            ),
+          ]),
+        ),
+      ),
+    );
   }
 
   Widget buildError(BuildContext context, {String? message}) {

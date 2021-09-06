@@ -5,7 +5,7 @@ class AppStrings {
 
   static String registerUrl = '/api/register';
 
-  static String cvUrl = '/api/cv_file'; // this is  a resource url
+  static String cvUrl = '/api/cv_file'; // this is a resource url
 
   static String userData = '/api/get_user_data';
 
@@ -13,5 +13,5 @@ class AppStrings {
 
   static String updateExpertise = '/api/update_user_expertise';
 
-  static String  getJobs ='/api/get_jobs';
+  static String getJobs = '/api/get_jobs';
 }
