@@ -9,6 +9,8 @@ import 'package:links_app/repositories/jobs_repository/jobs_provider.dart';
 import 'package:links_app/repositories/jobs_repository/jobs_repository.dart';
 import 'package:links_app/repositories/pdf_repository/pdf_provider.dart';
 import 'package:links_app/repositories/pdf_repository/pdf_repository.dart';
+import 'package:links_app/repositories/subscription_repository/subscription_provider.dart';
+import 'package:links_app/repositories/subscription_repository/subscription_repository.dart';
 import 'package:links_app/repositories/user_repository/user_provider.dart';
 import 'package:links_app/repositories/user_repository/user_repository.dart';
 
@@ -53,6 +55,11 @@ class AppRespositories extends StatelessWidget {
           provider: JobsProvider(storage: storage),
         ),
       ),
+       RepositoryProvider(
+        create: (context) => SubscriptionRepository(
+          subscriptionProvider: SubscriptionProvider(storage: storage),
+        ),
+      )
     ], child: appBlocs);
   }
 }

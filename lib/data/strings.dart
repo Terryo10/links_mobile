@@ -14,4 +14,14 @@ class AppStrings {
   static String updateExpertise = '/api/update_user_expertise';
 
   static String getJobs = '/api/get_jobs';
+
+  static String getPrice = '/api/get_price';
+
+  static String makePayment = '/api/make_payment';
+
+  static String checkPayment = '/api/confirm_payment/';
+
+  static String appliedJobs = '/api/applied_jobs';
+
+  static String jobApplication = '/api/make_application/';
 }

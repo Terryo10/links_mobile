@@ -14,4 +14,25 @@ class SubscriptionPriceLoadedState extends SubscriptionState{
 }
 
 class SubscriptionPayingState extends SubscriptionState{}
-class SubscriptionPaidState extends SubscriptionState{}
+
+class SubscriptionPaidState extends SubscriptionState{
+  final PaynowResponseModel paynowResponseModel;
+
+  SubscriptionPaidState({required this.paynowResponseModel});
+}
+
+class SubscriptionErrorState extends SubscriptionState{
+  final String message;
+
+  SubscriptionErrorState({required this.message});
+}
+
+class CheckingPaymentState extends SubscriptionState{
+}
+
+
+class PaymentCheckedState extends SubscriptionState{
+  final PaymentCheckModel paymentCheckModel;
+
+  PaymentCheckedState({required this.paymentCheckModel});
+}

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:links_app/bloc/cache_bloc/cache_bloc.dart';
 import 'package:links_app/bloc/experties_bloc/experties_bloc.dart';
+import 'package:links_app/bloc/subscription_bloc/subscription_bloc.dart';
 import 'package:links_app/bloc/user_bloc/user_bloc.dart';
 import 'package:links_app/models/auth_model/authentication_model.dart';
 import 'package:links_app/repositories/authentication_repository/authentication_repository.dart';
@@ -18,8 +19,10 @@ class AuthenticationBloc
   final CacheBloc cacheBloc;
   final UserBloc userBloc;
   final ExpertiesBloc expertiesBloc;
+  final SubscriptionBloc subscriptionBloc;
 
   AuthenticationBloc({
+    required this.subscriptionBloc,
     required this.authenticationRepository,
     required this.cacheBloc,
     required this.userBloc,
@@ -39,6 +42,7 @@ class AuthenticationBloc
         storage.write(key: 'token', value: loginResponse.token);
         expertiesBloc.add(FetchExpertiesList());
         userBloc.add(GetUserDataEvent());
+        subscriptionBloc.add(GetPriceEvent());
         yield AuthenticationAuthenticatedState(
             authenticationModel: loginResponse);
       } catch (e) {
