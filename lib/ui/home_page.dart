@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:links_app/bloc/user_bloc/user_bloc.dart';
 import 'package:links_app/ui/experties_page.dart';
 import 'package:links_app/ui/job_listing.dart';
+import 'package:links_app/ui/settings/settings.dart';
 import 'package:links_app/ui/upload_pdf.dart';
 import 'package:links_app/ui/widgets/loader.dart';
 import 'package:links_app/ui/widgets/logout_popup.dart';
@@ -15,6 +17,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  FlutterSecureStorage storage = new FlutterSecureStorage();
+ 
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -54,17 +59,24 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               ListTile(
-                title: const Text('Item 1'),
+                title: const Text('Settings'),
                 onTap: () {
-                  // Update the state of the app.
-                  // ...
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SettingsPage(
+                      
+                      ),
+                    ),
+                  );
                 },
               ),
               ListTile(
-                title: const Text('Item 2'),
+                title: const Text('Log Out'),
                 onTap: () {
-                  // Update the state of the app.
-                  // ...
+                  Navigator.pop(context);
+                  _showDialog();
                 },
               ),
             ],

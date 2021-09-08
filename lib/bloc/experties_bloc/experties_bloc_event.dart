@@ -12,3 +12,9 @@ class AssignExpertiesToUser extends ExpertiesEvent{
 
   AssignExpertiesToUser({required this.expertiesId});
 }
+
+class ChangeExperties extends ExpertiesEvent{
+  final expertiesId;
+
+  ChangeExperties({required this.expertiesId});
+}

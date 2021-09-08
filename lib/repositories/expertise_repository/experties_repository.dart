@@ -18,4 +18,10 @@ class ExpertiseRepository {
     var model = messageModelFromJson(data);
     return model;
   }
+
+   Future<MessageModel> changeExperties({required int expertiseId}) async {
+    var data = await provider.changeExperties(expertiseId: expertiseId);
+    var model = messageModelFromJson(data);
+    return model;
+  }
 }

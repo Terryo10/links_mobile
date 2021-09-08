@@ -80,4 +80,29 @@ class UserProvider {
       throw new Exception("Oops! Something went wrong.");
     }
   }
+
+   Future changePassword({required oldPassword, required newPassword}) async {
+    try {
+      var token = await storage.read(key: 'token');
+      var url = '${AppStrings.baseUrl}${AppStrings.jobApplication}';
+      print(url);
+      var headers = <String, String>{
+        "Authorization": "Bearer $token",
+        "content-type": "application/json"
+      };
+      var response = await http.get(Uri.parse(url), headers: headers);
+      print(response.body);
+
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        var message = jsonDecode(response.body);
+        throw new Exception(message['message']);
+      }
+    } on SocketException {
+      throw Exception('We cannot connect, check your connection');
+    } catch (e) {
+      throw new Exception("Oops! Something went wrong.");
+    }
+  }
 }

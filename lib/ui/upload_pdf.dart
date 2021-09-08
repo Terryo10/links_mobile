@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:links_app/bloc/pdf_bloc/pdf_bloc.dart';
+import 'package:links_app/bloc/user_bloc/user_bloc.dart';
 
 class UploadPdF extends StatefulWidget {
   const UploadPdF({Key? key}) : super(key: key);
@@ -31,8 +32,9 @@ class _UploadPdFState extends State<UploadPdF> {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               // ignore: unnecessary_null_comparison
               content: Text('File Uploaded Successfully')));
-
-          
+          //reset bloc
+          BlocProvider.of<PdfBloc>(context).add(ResetPdfEvent());
+          BlocProvider.of<UserBloc>(context).add(GetUserDataEvent());
         }
       },
       child: BlocBuilder<PdfBloc, PdfState>(

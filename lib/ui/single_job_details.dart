@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:links_app/bloc/bloc/applications_bloc.dart';
+import 'package:links_app/bloc/applications_bloc/applications_bloc.dart';
+
 import 'package:links_app/bloc/user_bloc/user_bloc.dart';
 import 'package:links_app/models/jobs_model/jobs_model.dart';
 import 'package:links_app/ui/payments/make_subscription.dart';

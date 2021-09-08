@@ -4,6 +4,7 @@ import 'package:links_app/models/messsage_model/message.dart';
 import 'package:links_app/models/user_model/user_model.dart';
 import 'package:links_app/repositories/user_repository/user_provider.dart';
 
+
 class UserRepository {
   final FlutterSecureStorage storage;
   final UserProvider provider;
@@ -24,6 +25,13 @@ class UserRepository {
 
   Future<MessageModel> jobApplication({required jobId}) async {
     var data = await provider.jobApplication(jobId: jobId);
+    var model = messageModelFromJson(data);
+    return model;
+    
+  }
+
+  Future<MessageModel> changePassword({required oldPassword, required newPassword}) async {
+    var data = await provider.changePassword(oldPassword: oldPassword,newPassword: newPassword);
     var model = messageModelFromJson(data);
     return model;
     

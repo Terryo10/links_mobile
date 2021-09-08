@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:links_app/bloc/applications_bloc/applications_bloc.dart';
 import 'package:links_app/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:links_app/bloc/experties_bloc/experties_bloc.dart';
 import 'package:links_app/bloc/subscription_bloc/subscription_bloc.dart';
@@ -14,7 +15,7 @@ import 'package:links_app/repositories/pdf_repository/pdf_repository.dart';
 import 'package:links_app/repositories/subscription_repository/subscription_repository.dart';
 import 'package:links_app/repositories/user_repository/user_repository.dart';
 
-import 'bloc/bloc/applications_bloc.dart';
+
 import 'bloc/cache_bloc/cache_bloc.dart';
 import 'bloc/jobs_bloc/jobs_bloc.dart';
 import 'bloc/pdf_bloc/pdf_bloc.dart';

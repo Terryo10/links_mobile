@@ -139,7 +139,9 @@ class _JobsPageState extends State<JobsPage> {
             child: RaisedButton(
           color: Color(0xfff7892b), // backgrounds
           textColor: Colors.white, // foreground
-          onPressed: () {},
+          onPressed: () {
+            BlocProvider.of<JobsBloc>(context).add(FetchUserJobs());
+          },
           child: Text('Retry'),
         )),
         Padding(

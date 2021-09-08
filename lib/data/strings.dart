@@ -13,6 +13,8 @@ class AppStrings {
 
   static String updateExpertise = '/api/update_user_expertise';
 
+   static String changeExpertise = '/api/change_expertise';
+
   static String getJobs = '/api/get_jobs';
 
   static String getPrice = '/api/get_price';

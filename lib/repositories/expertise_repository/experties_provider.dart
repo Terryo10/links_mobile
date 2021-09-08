@@ -61,4 +61,32 @@ class ExpertiseProvider {
       throw Exception(e.toString());
     }
   }
+
+  Future changeExperties({required expertiseId}) async {
+    try {
+      print('submitting experties $expertiseId');
+      var token = await storage.read(key: 'token');
+      String url = '${AppStrings.baseUrl}${AppStrings.changeExpertise}';
+
+      print(url);
+      var body = jsonEncode(<String, int>{'expertise_id': expertiseId});
+      var headers = <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        "Authorization": "Bearer $token",
+      };
+
+      var response =
+          await http.post(Uri.parse(url), headers: headers, body: body);
+      print(response.body);
+
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        var data = jsonDecode(response.body);
+        throw Exception(data['message']);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

@@ -42,5 +42,18 @@ class ExpertiesBloc extends Bloc<ExpertiesEvent, ExpertiesBlocState> {
         yield ExpertiseErrorState(message: e.toString());
       }
     }
+
+     if (event is ChangeExperties) {
+      yield ExpertiseLoadingState();
+      try {
+        var messageModel = await expertiseRepository.changeExperties(
+            expertiseId: event.expertiesId);
+
+        yield ExpertiseUpdatedState(messageModel: messageModel);
+        userBloc.add(GetUserDataEvent());
+      } catch (e) {
+        yield ExpertiseErrorState(message: e.toString());
+      }
+    }
   }
 }
