@@ -229,6 +229,100 @@ class _SettingsPageState extends State<SettingsPage> {
                   ]),
                 ),
               ),
+            ),
+            GestureDetector(
+              onTap: () {
+                // UodateExpertisePage
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UodateExpertisePage(),
+                    ));
+              },
+              child: Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                  side: BorderSide(
+                    width: 2,
+                    color: Color(0xfff7892b),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                            flex: 3,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'My Applied Jobs',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontFamily: 'CenturyGothicBold',
+                                    // fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            )),
+                        Expanded(flex: 1, child: Icon(Icons.navigate_next)),
+                      ],
+                    ),
+                  ]),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                // UodateExpertisePage
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UodateExpertisePage(),
+                    ));
+              },
+              child: Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                  side: BorderSide(
+                    width: 2,
+                    color: Color(0xfff7892b),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                            flex: 3,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Subscription Status',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontFamily: 'CenturyGothicBold',
+                                    // fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            )),
+                        Expanded(flex: 1, child: Icon(Icons.navigate_next)),
+                      ],
+                    ),
+                  ]),
+                ),
+              ),
             )
           ],
         ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:links_app/bloc/change_password_bloc/change_password_bloc.dart';
 
 class ChangePassword extends StatefulWidget {
   ChangePassword({Key? key}) : super(key: key);
@@ -9,6 +11,7 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
   final passwordController = TextEditingController();
+  final newPasswordController = TextEditingController();
   bool _pass = false;
   bool _mail = false;
   bool _emptyEmail = false;
@@ -25,6 +28,40 @@ class _ChangePasswordState extends State<ChangePassword> {
     } else {
       print('Invalid pass');
       return false;
+    }
+  }
+
+  bool _validateNewPassword() {
+    if (newPasswordController.text.length > 5) {
+      print('Valid pass');
+      return true;
+    } else if (newPasswordController.text.isEmpty) {
+      return true;
+    } else {
+      print('Invalid pass');
+      return false;
+    }
+  }
+
+  _onChangePassword() {
+    FocusScope.of(context).unfocus();
+    if (_validateNewPassword() &&
+        _validatePassword() &&
+        (newPasswordController.text.isNotEmpty &&
+            passwordController.text.isNotEmpty)) {
+      //set new password
+      BlocProvider.of<ChangePasswordBloc>(context).add(
+        PostNewPassword(
+          newPassword: newPasswordController.text,
+          oldPassword: passwordController.text,
+        ),
+      );
+    } else if (passwordController.text.isEmpty) {
+      setState(() {
+        _emptyPass = true;
+      });
+    } else {
+      print('we did not expect the error ');
     }
   }
 
@@ -50,7 +87,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       SizedBox(height: 5),
                       _passwordField('Old Password'),
                       SizedBox(height: 20),
-                      _passwordField('New Password'),
+                      _newPasswordField('New Password'),
                       SizedBox(height: 20),
                       _submitButton(context),
                     ],
@@ -64,7 +101,9 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   Widget _submitButton(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        _onChangePassword();
+      },
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(vertical: 15),
@@ -105,6 +144,70 @@ class _ChangePasswordState extends State<ChangePassword> {
           ),
           TextField(
             controller: passwordController,
+            obscureText: _hidePassword,
+            decoration: InputDecoration(
+                errorText: _pass
+                    ? 'Password too short'
+                    : _emptyPass
+                        ? 'Please Fill Me In '
+                        : null,
+                border: InputBorder.none,
+                fillColor: Color(0xfff3f3f4),
+                filled: true,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _passwordVisible = !_passwordVisible;
+                      _hidePassword = !_hidePassword;
+                    });
+                  },
+                )),
+            onChanged: (value) {
+              _validatePassword();
+              setState(() {
+                _emptyPass = false;
+              });
+              if (value.isEmpty) {
+                setState(() {
+                  _pass = false;
+                });
+              } else {
+                if (_validatePassword() == false) {
+                  setState(() {
+                    _pass = true;
+                  });
+                } else {
+                  setState(() {
+                    _pass = false;
+                  });
+                }
+              }
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _newPasswordField(String title, {bool isPassword = false}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          TextField(
+            controller: newPasswordController,
             obscureText: _hidePassword,
             decoration: InputDecoration(
                 errorText: _pass

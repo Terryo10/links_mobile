@@ -51,8 +51,7 @@ class _UodateExpertisePageState extends State<UodateExpertisePage> {
                             content: Text('Please Select A Field')));
                       } else {
                         BlocProvider.of<ExpertiesBloc>(context).add(
-                            AssignExpertiesToUser(
-                                expertiesId: selectedRadio.id));
+                            ChangeExperties(expertiesId: selectedRadio.id));
                         print('the selected expertise is ${selectedRadio.id}');
                       }
                     },

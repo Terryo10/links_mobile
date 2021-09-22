@@ -13,4 +13,8 @@ class ChangeLoadedState extends ChangePasswordState {
   ChangeLoadedState({required this.messageModel});
 }
 
-class ChangePasswordErrorState extends ChangePasswordState{}
+class ChangePasswordErrorState extends ChangePasswordState{
+  final String message;
+
+  ChangePasswordErrorState({required this.message});
+}

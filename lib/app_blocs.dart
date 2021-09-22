@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:links_app/bloc/applications_bloc/applications_bloc.dart';
 import 'package:links_app/bloc/authentication_bloc/authentication_bloc.dart';
+import 'package:links_app/bloc/change_password_bloc/change_password_bloc.dart';
 import 'package:links_app/bloc/experties_bloc/experties_bloc.dart';
 import 'package:links_app/bloc/subscription_bloc/subscription_bloc.dart';
 import 'package:links_app/bloc/user_bloc/user_bloc.dart';
@@ -14,7 +15,6 @@ import 'package:links_app/repositories/jobs_repository/jobs_repository.dart';
 import 'package:links_app/repositories/pdf_repository/pdf_repository.dart';
 import 'package:links_app/repositories/subscription_repository/subscription_repository.dart';
 import 'package:links_app/repositories/user_repository/user_repository.dart';
-
 
 import 'bloc/cache_bloc/cache_bloc.dart';
 import 'bloc/jobs_bloc/jobs_bloc.dart';
@@ -84,6 +84,11 @@ class AppBlocs extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ApplicationsBloc(
+            userRepository: RepositoryProvider.of<UserRepository>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ChangePasswordBloc(
             userRepository: RepositoryProvider.of<UserRepository>(context),
           ),
         )
