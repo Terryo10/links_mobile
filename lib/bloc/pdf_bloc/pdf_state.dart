@@ -18,3 +18,11 @@ class PDFErrorState extends PdfState {
 
   PDFErrorState(this.message);
 }
+
+class LoadingState extends PdfState {}
+
+class PDFDeletedState extends PdfState{
+  final MessageModel messageModel;
+  
+  PDFDeletedState({required this.messageModel});
+}

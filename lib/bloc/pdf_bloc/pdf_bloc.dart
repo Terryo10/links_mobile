@@ -36,5 +36,18 @@ class PdfBloc extends Bloc<PdfEvent, PdfState> {
     if (event is ResetPdfEvent) {
       yield PdfInitial();
     }
+
+    if (event is DeletePDFEvent) {
+      print('we are removing now');
+      yield LoadingState();
+      try {
+        var response = await pdfRepository.delete();
+        userBloc.add(GetUserDataEvent());
+        yield PDFDeletedState(messageModel: response);
+      } catch (e) {
+        print(e.toString());
+        yield PDFErrorState(e.toString());
+      }
+    }
   }
 }

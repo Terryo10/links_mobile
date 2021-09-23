@@ -20,4 +20,13 @@ class PDFRepository {
 
     return model;
   }
+
+   Future<MessageModel> delete() async {
+    var token = await storage.read(key: 'token');
+    var response =
+        await provider.delete(token: token);
+    var model = messageModelFromJson(response);
+
+    return model;
+  }
 }

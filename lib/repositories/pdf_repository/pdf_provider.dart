@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-
 import 'package:links_app/data/strings.dart';
 
 import 'package:http/http.dart' as http;
@@ -48,6 +47,30 @@ class PDFProvider {
       }
     } catch (e) {
       throw Exception(e.toString());
+    }
+  }
+
+  Future delete({required token}) async {
+    try {
+      var url = '${AppStrings.baseUrl}${AppStrings.cvUrl}/1';
+      print(url);
+      var headers = <String, String>{
+        "Authorization": "Bearer $token",
+        "content-type": "application/json"
+      };
+      var response = await http.delete(Uri.parse(url), headers: headers);
+      print(response.body);
+
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        var message = jsonDecode(response.body);
+        throw new Exception(message['message']);
+      }
+    } on SocketException {
+      throw Exception('We cannot connect, check your connection');
+    } catch (e) {
+      throw new Exception("Oops! Something went wrong.");
     }
   }
 }
