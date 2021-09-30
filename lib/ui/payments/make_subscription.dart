@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:links_app/bloc/subscription_bloc/subscription_bloc.dart';
 import 'package:links_app/bloc/user_bloc/user_bloc.dart';
+import 'package:links_app/models/payments_model/payment_check_model.dart';
 import 'package:links_app/models/payments_model/payments_model.dart';
 import 'package:links_app/ui/widgets/loader.dart';
 import 'package:intl/intl.dart';
@@ -64,6 +65,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       listener: (context, state) {
         if (state is PaymentCheckedState) {
           if (state.paymentCheckModel.status == "Paid") {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                // ignore: unnecessary_null_comparison
+                content: Text('Thank you for subscribing')));
             BlocProvider.of<UserBloc>(context).add(GetUserDataEvent());
           }
         }
@@ -152,7 +156,23 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             } else if (state is CheckingPaymentState) {
               return checkingTransaction();
             } else if (state is PaymentCheckedState) {
-              return transactionChecked();
+              if (state.paymentCheckModel.status == 'Paid') {
+                //payment was done
+                print('transaction was paid');
+              } else if (state.paymentCheckModel.status == 'Sent') {
+                print('transaction was sent');
+                //check again
+                return reCheckSent(
+                    context: context, model: state.paymentCheckModel);
+              } else if (state.paymentCheckModel.status == 'Cancelled') {
+                //payment was cancelled
+                print('transaction was cancelled');
+                return paymentCancelled(
+                    context: context, model: state.paymentCheckModel);
+              } else {
+                print(state.paymentCheckModel.status);
+                return transactionChecked();
+              }
             }
             return buildError();
           },
@@ -286,6 +306,124 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                           colors: [Color(0xfffbb448), Color(0xfff7892b)])),
                   child: Text(
                     'Check Payment',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ),
+              )
+            ],
+          )),
+    );
+  }
+
+  Widget reCheckSent(
+      {PaymentCheckModel? model, required BuildContext context}) {
+    return Center(
+      child: Padding(
+          padding: EdgeInsets.fromLTRB(8, 40, 8, 8),
+          child: Column(
+            children: <Widget>[
+              Text('Payment Status is reflecting as sent'),
+              SizedBox(height: 15),
+              InkWell(
+                onTap: () {
+                  BlocProvider.of<SubscriptionBloc>(context)
+                      .add(CheckPaymentEvent(model!.order!.id!.toInt()));
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            color: Colors.grey.shade200,
+                            offset: Offset(2, 4),
+                            blurRadius: 5,
+                            spreadRadius: 2)
+                      ],
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                  child: Text(
+                    'Check Payment Again',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  BlocProvider.of<SubscriptionBloc>(context)
+                      .add(GetPriceEvent());
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            color: Colors.grey.shade200,
+                            offset: Offset(2, 4),
+                            blurRadius: 5,
+                            spreadRadius: 2)
+                      ],
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                  child: Text(
+                    'Cancel Payment Check',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ),
+              )
+            ],
+          )),
+    );
+  }
+
+  Widget paymentCancelled(
+      {PaymentCheckModel? model, required BuildContext context}) {
+    return Center(
+      child: Padding(
+          padding: EdgeInsets.fromLTRB(8, 40, 8, 8),
+          child: Column(
+            children: <Widget>[
+              Text('Oops Payment was cancelled'),
+              SizedBox(height: 15),
+              SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  BlocProvider.of<SubscriptionBloc>(context)
+                      .add(GetPriceEvent());
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            color: Colors.grey.shade200,
+                            offset: Offset(2, 4),
+                            blurRadius: 5,
+                            spreadRadius: 2)
+                      ],
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                  child: Text(
+                    'Cancel Payment Check',
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),

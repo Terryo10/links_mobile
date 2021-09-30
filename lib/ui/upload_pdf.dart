@@ -45,7 +45,7 @@ class _UploadPdFState extends State<UploadPdF> {
             return Scaffold(
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
-                  onUploadPDF();
+                  onUploadPDF(context);
                 },
                 backgroundColor: Colors.amber,
                 child: Icon(
@@ -83,7 +83,7 @@ class _UploadPdFState extends State<UploadPdF> {
                   Padding(
                     padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                     child: Text(
-                      'Browse and upload your cv to procceed',
+                      'Browse and upload your cv to procceed Max Size (10MB)',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -110,7 +110,7 @@ class _UploadPdFState extends State<UploadPdF> {
     );
   }
 
-  void onUploadPDF() async {
+  void onUploadPDF(BuildContext context) async {
     print('uploading pdf');
 
     FilePickerResult? result = await FilePicker.platform
@@ -119,10 +119,22 @@ class _UploadPdFState extends State<UploadPdF> {
     if (result != null) {
       print('picked a file');
       File file = File(result.files.single.path!);
-      BlocProvider.of<PdfBloc>(context).add(UploadPDFEvent(pdfFile: file));
+      int sizeInBytes = file.lengthSync();
+      double sizeInMb = sizeInBytes / (1024 * 1024);
+      //check file size
+      if (sizeInMb > 10) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            // ignore: unnecessary_null_comparison
+            content: Text('File size is bigger than expected')));
+      } else {
+        BlocProvider.of<PdfBloc>(context).add(UploadPDFEvent(pdfFile: file));
+      }
     } else {
       print('user cancelleed picking ');
       // User canceled the picker
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          // ignore: unnecessary_null_comparison
+          content: Text('You Cancelled file picking')));
     }
   }
 

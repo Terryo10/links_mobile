@@ -20,10 +20,9 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-
   @override
   Widget build(BuildContext context) {
-      UserModel user ;
+    UserModel user;
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),
@@ -109,7 +108,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => PdfPreviewPage(
-                                        token: state.authenticationModel.token, userModel: user),
+                                        token: state.authenticationModel.token,
+                                        userModel: user),
                                   ));
                             },
                             child: Card(
@@ -167,8 +167,10 @@ class _SettingsPageState extends State<SettingsPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        PdfPreviewPage(token: state.token, userModel: user,),
+                                    builder: (context) => PdfPreviewPage(
+                                      token: state.token,
+                                      userModel: user,
+                                    ),
                                   ));
                             },
                             child: Card(
@@ -218,55 +220,55 @@ class _SettingsPageState extends State<SettingsPage> {
                         return Container();
                       },
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        // UodateExpertisePage
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => UodateExpertisePage(),
-                            ));
-                      },
-                      child: Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          side: BorderSide(
-                            width: 2,
-                            color: Color(0xfff7892b),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                    flex: 3,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Change Expertise',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.black,
-                                            fontFamily: 'CenturyGothicBold',
-                                            // fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Expanded(
-                                    flex: 1, child: Icon(Icons.navigate_next)),
-                              ],
-                            ),
-                          ]),
-                        ),
-                      ),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     // UodateExpertisePage
+                    //     Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //           builder: (context) => UodateExpertisePage(),
+                    //         ));
+                    //   },
+                    //   child: Card(
+                    //     elevation: 2,
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(16.0),
+                    //       side: BorderSide(
+                    //         width: 2,
+                    //         color: Color(0xfff7892b),
+                    //       ),
+                    //     ),
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.all(8.0),
+                    //       child: Column(children: [
+                    //         Row(
+                    //           crossAxisAlignment: CrossAxisAlignment.center,
+                    //           children: [
+                    //             Expanded(
+                    //                 flex: 3,
+                    //                 child: Column(
+                    //                   crossAxisAlignment:
+                    //                       CrossAxisAlignment.start,
+                    //                   children: [
+                    //                     Text(
+                    //                       'Change Expertise',
+                    //                       style: TextStyle(
+                    //                         fontSize: 20,
+                    //                         color: Colors.black,
+                    //                         fontFamily: 'CenturyGothicBold',
+                    //                         // fontWeight: FontWeight.bold,
+                    //                       ),
+                    //                     ),
+                    //                   ],
+                    //                 )),
+                    //             Expanded(
+                    //                 flex: 1, child: Icon(Icons.navigate_next)),
+                    //           ],
+                    //         ),
+                    //       ]),
+                    //     ),
+                    //   ),
+                    // ),
                     GestureDetector(
                       onTap: () {
                         // UodateExpertisePage
@@ -388,7 +390,9 @@ class _SettingsPageState extends State<SettingsPage> {
             child: RaisedButton(
           color: Color(0xfff7892b), // backgrounds
           textColor: Colors.white, // foreground
-          onPressed: () {},
+          onPressed: () {
+            BlocProvider.of<CacheBloc>(context).add(AppStartedEvent());
+          },
           child: Text('Retry'),
         )),
         Padding(

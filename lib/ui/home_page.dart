@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:links_app/bloc/cache_bloc/cache_bloc.dart';
+import 'package:links_app/bloc/experties_bloc/experties_bloc.dart';
 import 'package:links_app/bloc/user_bloc/user_bloc.dart';
 import 'package:links_app/ui/experties_page.dart';
 import 'package:links_app/ui/job_listing.dart';
@@ -18,7 +20,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   FlutterSecureStorage storage = new FlutterSecureStorage();
- 
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +66,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SettingsPage(
-                      
-                      ),
+                      builder: (context) => SettingsPage(),
                     ),
                   );
                 },
@@ -136,7 +135,10 @@ class _HomePageState extends State<HomePage> {
             child: RaisedButton(
           color: Color(0xfff7892b), // backgrounds
           textColor: Colors.white, // foreground
-          onPressed: () {},
+          onPressed: () {
+            BlocProvider.of<CacheBloc>(context).add(AppStartedEvent());
+            
+          },
           child: Text('Retry'),
         )),
         Padding(

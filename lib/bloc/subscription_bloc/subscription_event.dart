@@ -24,3 +24,7 @@ class CheckPaymentEvent extends  SubscriptionEvent{
 
   CheckPaymentEvent(this.orderId);
 }
+
+class ResetSubscription extends SubscriptionEvent{
+
+}

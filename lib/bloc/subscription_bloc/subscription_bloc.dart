@@ -53,5 +53,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         yield SubscriptionErrorState(message: e.toString());
       }
     }
+
+    if (event is ResetSubscription) {
+      yield SubscriptionInitial();
+    }
   }
 }
