@@ -30,4 +30,28 @@ class JobsProvider{
       throw new Exception("Oops! Something went wrong.");
     }
   }
+
+     Future getUserAppliedJobs()async{
+     try {
+      var token = await storage.read(key: 'token');
+      var url = '${AppStrings.baseUrl}${AppStrings.appliedJobs}';
+      var headers = <String, String>{
+        "Authorization": "Bearer $token",
+        "content-type": "application/json"
+      };
+      var response = await http.get(Uri.parse(url), headers: headers);
+      print(response.body);
+
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        print(response.body);
+        throw new Exception("Oops! Something went wrong.");
+      }
+    } on SocketException {
+      throw Exception('We cannot connect, check your connection');
+    } catch (e) {
+      throw new Exception("Oops! Something went wrong.");
+    }
+  }
 }

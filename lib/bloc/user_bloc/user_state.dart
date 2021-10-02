@@ -12,9 +12,9 @@ class UserLoadingState extends UserState{
 
 class UserLoadedState extends UserState{ 
   final UserModel userModel;
-  final AppliedJobsModel  appliedJobsModel;
+  final JobsModel  jobs;
 
-  UserLoadedState({required this.userModel, required this.appliedJobsModel});
+  UserLoadedState({required this.userModel, required this.jobs});
 }
 
 class UserErrorState extends UserState{

@@ -31,5 +31,7 @@ class ApplicationsBloc extends Bloc<ApplicationsEvent, ApplicationsState> {
     if (event is Reset) {
       yield ApplicationsInitial();
     }
+
+
   }
 }

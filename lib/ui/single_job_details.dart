@@ -6,6 +6,7 @@ import 'package:links_app/bloc/user_bloc/user_bloc.dart';
 import 'package:links_app/models/jobs_model/jobs_model.dart';
 import 'package:links_app/ui/payments/make_subscription.dart';
 import 'package:links_app/ui/payments/update_subscription.dart';
+import 'package:links_app/ui/settings/subscription_status_page.dart';
 
 class SingleJobDetails extends StatefulWidget {
   final Job job;
@@ -26,8 +27,8 @@ class _SingleJobDetailsState extends State<SingleJobDetails> {
       child: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
           if (state is UserLoadedState) {
-            state.appliedJobsModel.applications!.forEach((element) {
-              ids.add(element.job!.id!);
+            state.jobs.jobs!.forEach((element) {
+              ids.add(element.id!);
             });
             if (state.userModel.data!.subscription == null) {
               //user does not have subscription
@@ -40,7 +41,7 @@ class _SingleJobDetailsState extends State<SingleJobDetails> {
               var currentDate = DateTime.now();
               if (expiresAt.isBefore(currentDate)) {
                 // the subscription is expired
-                return UpdateSubscriptionPage();
+                return SubscriptionStatusPage();
               } else {
                 return jobDetails(job: widget.job);
               }

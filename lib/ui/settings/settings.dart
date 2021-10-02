@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:links_app/bloc/applied_jobs_bloc/appliedjobs_bloc.dart';
 import 'package:links_app/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:links_app/bloc/cache_bloc/cache_bloc.dart';
 import 'package:links_app/bloc/user_bloc/user_bloc.dart';
@@ -8,8 +9,10 @@ import 'package:links_app/ui/experties_page.dart';
 import 'package:links_app/ui/settings/change_password.dart';
 
 import 'package:links_app/ui/settings/preview_pdf.dart';
+import 'package:links_app/ui/settings/subscription_status_page.dart';
 import 'package:links_app/ui/update_expertise.dart';
 import 'package:links_app/ui/upload_pdf.dart';
+import 'package:links_app/ui/user_applied_jobs.dart';
 import 'package:links_app/ui/widgets/loader.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -220,62 +223,15 @@ class _SettingsPageState extends State<SettingsPage> {
                         return Container();
                       },
                     ),
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     // UodateExpertisePage
-                    //     Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //           builder: (context) => UodateExpertisePage(),
-                    //         ));
-                    //   },
-                    //   child: Card(
-                    //     elevation: 2,
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(16.0),
-                    //       side: BorderSide(
-                    //         width: 2,
-                    //         color: Color(0xfff7892b),
-                    //       ),
-                    //     ),
-                    //     child: Padding(
-                    //       padding: const EdgeInsets.all(8.0),
-                    //       child: Column(children: [
-                    //         Row(
-                    //           crossAxisAlignment: CrossAxisAlignment.center,
-                    //           children: [
-                    //             Expanded(
-                    //                 flex: 3,
-                    //                 child: Column(
-                    //                   crossAxisAlignment:
-                    //                       CrossAxisAlignment.start,
-                    //                   children: [
-                    //                     Text(
-                    //                       'Change Expertise',
-                    //                       style: TextStyle(
-                    //                         fontSize: 20,
-                    //                         color: Colors.black,
-                    //                         fontFamily: 'CenturyGothicBold',
-                    //                         // fontWeight: FontWeight.bold,
-                    //                       ),
-                    //                     ),
-                    //                   ],
-                    //                 )),
-                    //             Expanded(
-                    //                 flex: 1, child: Icon(Icons.navigate_next)),
-                    //           ],
-                    //         ),
-                    //       ]),
-                    //     ),
-                    //   ),
-                    // ),
                     GestureDetector(
                       onTap: () {
                         // UodateExpertisePage
+                        BlocProvider.of<AppliedjobsBloc>(context)
+                            .add(GetAppliedJobsEvent());
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => UodateExpertisePage(),
+                              builder: (context) => UserAppliedJobs(),
                             ));
                       },
                       child: Card(
@@ -324,7 +280,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => UodateExpertisePage(),
+                              builder: (context) => SubscriptionStatusPage(),
                             ));
                       },
                       child: Card(

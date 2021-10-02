@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:links_app/bloc/applications_bloc/applications_bloc.dart';
+import 'package:links_app/bloc/applied_jobs_bloc/appliedjobs_bloc.dart';
 import 'package:links_app/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:links_app/bloc/change_password_bloc/change_password_bloc.dart';
 import 'package:links_app/bloc/experties_bloc/experties_bloc.dart';
@@ -91,7 +92,12 @@ class AppBlocs extends StatelessWidget {
           create: (context) => ChangePasswordBloc(
             userRepository: RepositoryProvider.of<UserRepository>(context),
           ),
-        )
+        ),
+        BlocProvider(
+          create: (context) => AppliedjobsBloc(
+            jobsRepository: RepositoryProvider.of<JobsRepository>(context),
+          ),
+        ),
       ],
       child: app,
     );

@@ -31,20 +31,16 @@ class AppliedJobsModel {
 class Application {
     Application({
         this.job,
-        this.user,
     });
 
     Job? job;
-    User? user;
 
     factory Application.fromJson(Map<String, dynamic> json) => Application(
         job: json["job"] == null ? null : Job.fromJson(json["job"]),
-        user: json["user"] == null ? null : User.fromJson(json["user"]),
     );
 
     Map<String, dynamic> toJson() => {
         "job": job == null ? null : job!.toJson(),
-        "user": user == null ? null : user!.toJson(),
     };
 }
 
@@ -64,7 +60,7 @@ class Job {
     int? id;
     int? organisationId;
     String? name;
-    String? type;
+    String?type;
     int? expertisesId;
     String? description;
     String? tasks;
@@ -91,86 +87,6 @@ class Job {
         "expertises_id": expertisesId == null ? null : expertisesId,
         "description": description == null ? null : description,
         "tasks": tasks == null ? null : tasks,
-        "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
-        "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
-    };
-}
-
-class User {
-    User({
-        this.id,
-        this.name,
-        this.email,
-        this.emailVerifiedAt,
-        this.createdAt,
-        this.updatedAt,
-        this.expertiesId,
-        this.cvFile,
-        this.expertise,
-    });
-
-    int? id;
-    String? name;
-    String? email;
-    dynamic emailVerifiedAt;
-    DateTime? createdAt;
-    DateTime? updatedAt;
-    int? expertiesId;
-    CvFile? cvFile;
-    dynamic expertise;
-
-    factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-        email: json["email"] == null ? null : json["email"],
-        emailVerifiedAt: json["email_verified_at"],
-        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-        expertiesId: json["experties_id"] == null ? null : json["experties_id"],
-        cvFile: json["cv_file"] == null ? null : CvFile.fromJson(json["cv_file"]),
-        expertise: json["expertise"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "email": email == null ? null : email,
-        "email_verified_at": emailVerifiedAt,
-        "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
-        "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
-        "experties_id": expertiesId == null ? null : expertiesId,
-        "cv_file": cvFile == null ? null : cvFile!.toJson(),
-        "expertise": expertise,
-    };
-}
-
-class CvFile {
-    CvFile({
-        this.id,
-        this.userId,
-        this.filePath,
-        this.createdAt,
-        this.updatedAt,
-    });
-
-    int? id;
-    int? userId;
-    String? filePath;
-    DateTime? createdAt;
-    DateTime? updatedAt;
-
-    factory CvFile.fromJson(Map<String, dynamic> json) => CvFile(
-        id: json["id"] == null ? null : json["id"],
-        userId: json["user_id"] == null ? null : json["user_id"],
-        filePath: json["file_path"] == null ? null : json["file_path"],
-        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "user_id": userId == null ? null : userId,
-        "file_path": filePath == null ? null : filePath,
         "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
     };

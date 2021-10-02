@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:links_app/bloc/jobs_bloc/jobs_bloc.dart';
 import 'package:links_app/models/applied_jobs_model/applied_jobs_model.dart';
+import 'package:links_app/models/jobs_model/jobs_model.dart';
 import 'package:links_app/models/messsage_model/message.dart';
 import 'package:links_app/models/user_model/user_model.dart';
 import 'package:links_app/repositories/user_repository/user_repository.dart';
@@ -29,7 +30,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         var appliedJobs = await userRepository.getAppliedJobs();
         print('user data found');
         yield UserLoadedState(
-            userModel: userData, appliedJobsModel: appliedJobs);
+            userModel: userData, jobs: appliedJobs);
         if (userData.data!.expertise != null && userData.data!.cvFile != null) {
           jobsBloc.add(FetchUserJobs());
         }
