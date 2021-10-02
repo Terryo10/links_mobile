@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:links_app/bloc/subscription_bloc/subscription_bloc.dart';
 import 'package:links_app/bloc/user_bloc/user_bloc.dart';
+import 'package:links_app/models/user_model/user_model.dart';
+import 'package:links_app/ui/payments/make_subscription.dart';
 
 class SubscriptionStatusPage extends StatefulWidget {
   const SubscriptionStatusPage({Key? key}) : super(key: key);
@@ -10,6 +14,7 @@ class SubscriptionStatusPage extends StatefulWidget {
 }
 
 class _SubscriptionStatusPageState extends State<SubscriptionStatusPage> {
+  final f = new DateFormat.yMMMMd('en_US');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +29,7 @@ class _SubscriptionStatusPageState extends State<SubscriptionStatusPage> {
         child: BlocBuilder<UserBloc, UserState>(
           builder: (context, state) {
             if (state is UserLoadedState) {
-              return transactionSent(context: context);
+              return body(context: context, userModel: state.userModel);
             }
             return Container();
           },
@@ -33,16 +38,24 @@ class _SubscriptionStatusPageState extends State<SubscriptionStatusPage> {
     );
   }
 
-  Widget transactionSent({required BuildContext context}) {
+  Widget body({required BuildContext context, required UserModel userModel}) {
     return Center(
       child: Padding(
           padding: EdgeInsets.fromLTRB(8, 40, 8, 8),
           child: Column(
             children: <Widget>[
-              Text('kkkkkk'),
+              Text(
+                  'You Subscription expires on ${f.format(DateTime.parse(userModel.data!.subscription!.expiresAt.toString()))}'),
               SizedBox(height: 15),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  BlocProvider.of<SubscriptionBloc>(context)
+                      .add(GetPriceEvent());
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SubscriptionPage()),
+                  );
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.symmetric(vertical: 15),
@@ -61,7 +74,7 @@ class _SubscriptionStatusPageState extends State<SubscriptionStatusPage> {
                           end: Alignment.centerRight,
                           colors: [Color(0xfffbb448), Color(0xfff7892b)])),
                   child: Text(
-                    'Check Payment',
+                    'Top Up Days To Your Subscription',
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),

@@ -81,16 +81,22 @@ class UserProvider {
     }
   }
 
-   Future changePassword({required oldPassword, required newPassword}) async {
+  Future changePassword({required oldPassword, required newPassword}) async {
     try {
       var token = await storage.read(key: 'token');
-      var url = '${AppStrings.baseUrl}${AppStrings.jobApplication}';
+      var url = '${AppStrings.baseUrl}${AppStrings.changePassword}';
       print(url);
       var headers = <String, String>{
         "Authorization": "Bearer $token",
         "content-type": "application/json"
       };
-      var response = await http.get(Uri.parse(url), headers: headers);
+
+      var response = await http.post(Uri.parse(url),
+          body: jsonEncode(<String, String>{
+            'current_password': oldPassword,
+            'new_password': newPassword
+          }),
+          headers: headers);
       print(response.body);
 
       if (response.statusCode == 200) {
@@ -102,7 +108,7 @@ class UserProvider {
     } on SocketException {
       throw Exception('We cannot connect, check your connection');
     } catch (e) {
-      throw new Exception("Oops! Something went wrong.");
+      throw new Exception(e.toString());
     }
   }
 }

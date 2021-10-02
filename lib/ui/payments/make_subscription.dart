@@ -159,6 +159,11 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               if (state.paymentCheckModel.status == 'Paid') {
                 //payment was done
                 print('transaction was paid');
+                return Container(
+                  child: Center(
+                    child: Text('Subscription was made successfully'),
+                  ),
+                );
               } else if (state.paymentCheckModel.status == 'Sent') {
                 print('transaction was sent');
                 //check again

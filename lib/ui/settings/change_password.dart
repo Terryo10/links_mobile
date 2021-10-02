@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:links_app/bloc/change_password_bloc/change_password_bloc.dart';
+import 'package:links_app/ui/widgets/loader.dart';
 
 class ChangePassword extends StatefulWidget {
   ChangePassword({Key? key}) : super(key: key);
@@ -13,9 +14,10 @@ class _ChangePasswordState extends State<ChangePassword> {
   final passwordController = TextEditingController();
   final newPasswordController = TextEditingController();
   bool _pass = false;
-  bool _mail = false;
+  bool _newPass = false;
   bool _emptyEmail = false;
   bool _emptyPass = false;
+  bool _emptyNewPass = false;
   bool _passwordVisible = false;
   bool _hidePassword = true;
 
@@ -73,28 +75,48 @@ class _ChangePasswordState extends State<ChangePassword> {
           title: Text('Change Password'),
           backgroundColor: Color(0xfff7892b),
         ),
-        body: Container(
-          height: height,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: 5),
-                      _passwordField('Old Password'),
-                      SizedBox(height: 20),
-                      _newPasswordField('New Password'),
-                      SizedBox(height: 20),
-                      _submitButton(context),
-                    ],
-                  ),
+        body: BlocListener<ChangePasswordBloc, ChangePasswordState>(
+          listener: (context, state) {
+            if (state is ChangePasswordErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  // ignore: unnecessary_null_comparison
+                  content: Text(state.message.replaceAll('Exception', ''))));
+            } else if (state is ChangeLoadedState) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  // ignore: unnecessary_null_comparison
+                  content: Text(state.messageModel.message.toString())));
+            }
+          },
+          child: BlocBuilder<ChangePasswordBloc, ChangePasswordState>(
+            builder: (context, state) {
+              if (state is ChangeLoadingState) {
+                return Loader();
+              }
+              return Container(
+                height: height,
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(height: 5),
+                            _passwordField('Old Password'),
+                            SizedBox(height: 20),
+                            _newPasswordField('New Password'),
+                            SizedBox(height: 20),
+                            _submitButton(context),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+              );
+            },
           ),
         ));
   }
@@ -210,9 +232,9 @@ class _ChangePasswordState extends State<ChangePassword> {
             controller: newPasswordController,
             obscureText: _hidePassword,
             decoration: InputDecoration(
-                errorText: _pass
+                errorText: _newPass
                     ? 'Password too short'
-                    : _emptyPass
+                    : _emptyNewPass
                         ? 'Please Fill Me In '
                         : null,
                 border: InputBorder.none,
@@ -231,22 +253,22 @@ class _ChangePasswordState extends State<ChangePassword> {
                   },
                 )),
             onChanged: (value) {
-              _validatePassword();
+              _validateNewPassword();
               setState(() {
-                _emptyPass = false;
+                _emptyNewPass = false;
               });
               if (value.isEmpty) {
                 setState(() {
-                  _pass = false;
+                  _newPass = false;
                 });
               } else {
-                if (_validatePassword() == false) {
+                if (_validateNewPassword() == false) {
                   setState(() {
-                    _pass = true;
+                    _newPass = true;
                   });
                 } else {
                   setState(() {
-                    _pass = false;
+                    _newPass = false;
                   });
                 }
               }

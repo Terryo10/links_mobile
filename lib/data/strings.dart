@@ -26,4 +26,6 @@ class AppStrings {
   static String appliedJobs = '/api/applied_jobs';
 
   static String jobApplication = '/api/make_application/';
+
+  static String changePassword = '/api/change_password';
 }
