@@ -1,5 +1,5 @@
 class AppStrings {
-  static String baseUrl = 'http://192.168.43.160:5000';
+  static String baseUrl = 'http://app.links.co.zw';
 
   static String loginUrl = '/api/login';
 
@@ -13,7 +13,7 @@ class AppStrings {
 
   static String updateExpertise = '/api/update_user_expertise';
 
-   static String changeExpertise = '/api/change_expertise';
+  static String changeExpertise = '/api/change_expertise';
 
   static String getJobs = '/api/get_jobs';
 

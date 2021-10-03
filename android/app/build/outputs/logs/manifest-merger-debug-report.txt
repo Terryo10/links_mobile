@@ -50,7 +50,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\ta
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.1.0] C:\Users\tapiw\.gradle\caches\transforms-2\files-2.1\d67cd79abd1ca209502f51c69d23182b\core-1.1.0\AndroidManifest.xml:24:18-86
 	android:label
-		ADDED from C:\Users\tapiw\AndroidStudioProjects\links_app\android\app\src\main\AndroidManifest.xml:4:9-34
+		ADDED from C:\Users\tapiw\AndroidStudioProjects\links_app\android\app\src\main\AndroidManifest.xml:4:9-30
 	android:icon
 		ADDED from C:\Users\tapiw\AndroidStudioProjects\links_app\android\app\src\main\AndroidManifest.xml:5:9-43
 activity#co.zw.links_app.MainActivity

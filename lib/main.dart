@@ -12,7 +12,8 @@ Future<void> main() async {
     appBlocs: AppBlocs(
       app: MyApp(),
       storage: storage,
-    ), storage: storage,
+    ),
+    storage: storage,
   );
   runApp(appConfig);
 }
@@ -28,6 +29,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Links App',
       home: SplashScreen(),
     );

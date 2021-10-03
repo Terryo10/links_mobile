@@ -29,6 +29,10 @@ class _UserAppliedJobsState extends State<UserAppliedJobs> {
             if (state is AppliedjobsLoadingState) {
               return Loader();
             } else if (state is AppliedjobsILoadedState) {
+              if (state.jobsModel.jobs!.isEmpty) {
+                print('hapana mabasa');
+                return noJobs(context: context);
+              }
               return jobsList(jobsModel: state.jobsModel);
             }
             return Container();
@@ -132,6 +136,51 @@ class _UserAppliedJobsState extends State<UserAppliedJobs> {
           ]),
         ),
       ),
+    );
+  }
+
+  Widget noJobs({required BuildContext context}) {
+    return Center(
+      child: Padding(
+          padding: EdgeInsets.fromLTRB(8, 40, 8, 8),
+          child: Column(
+            children: <Widget>[
+              Text('You Have Not applied for any jobs yet'),
+              SizedBox(height: 15),
+              // InkWell(
+              //   onTap: () {
+              //     BlocProvider.of<SubscriptionBloc>(context)
+              //         .add(GetPriceEvent());
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => SubscriptionPage()),
+              //     );
+              //   },
+              //   child: Container(
+              //     width: MediaQuery.of(context).size.width,
+              //     padding: EdgeInsets.symmetric(vertical: 15),
+              //     alignment: Alignment.center,
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.all(Radius.circular(5)),
+              //         boxShadow: <BoxShadow>[
+              //           BoxShadow(
+              //               color: Colors.grey.shade200,
+              //               offset: Offset(2, 4),
+              //               blurRadius: 5,
+              //               spreadRadius: 2)
+              //         ],
+              //         gradient: LinearGradient(
+              //             begin: Alignment.centerLeft,
+              //             end: Alignment.centerRight,
+              //             colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+              //     child: Text(
+              //       'Click Here To Subscribe',
+              //       style: TextStyle(fontSize: 20, color: Colors.white),
+              //     ),
+              //   ),
+              // )
+            ],
+          )),
     );
   }
 }
