@@ -50,81 +50,92 @@ class _JobsPageState extends State<JobsPage> {
           MaterialPageRoute(builder: (context) => SingleJobDetails(job!)),
         );
       },
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-          side: BorderSide(
-            width: 2,
-            color: Color(0xfff7892b),
-          ),
+      child: Container(
+        decoration: new BoxDecoration(
+          boxShadow: [
+            new BoxShadow(
+              color: Colors.black12,
+              blurRadius: 20.0,
+            ),
+          ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: Column(children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                    flex: 3,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          job!.name ?? '',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontFamily: 'CenturyGothicBold',
-                            // fontWeight: FontWeight.bold,
+        child: Card(
+          elevation: 2,
+          shadowColor: Colors.black12,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4.0),
+            side: BorderSide(
+              width: 2,
+              color: Color(0xfff7892b),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            child: Column(children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                      flex: 3,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            job!.name ?? '',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontFamily: 'CenturyGothicBold',
+                              // fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
-                    )),
-                Expanded(flex: 1, child: Icon(Icons.navigate_next)),
-              ],
-            ),
-            SizedBox(
-              height: 2,
-            ),
-            Row(
-              children: [
-                Expanded(flex: 1, child: Icon(Icons.query_builder)),
-                Expanded(
-                  flex: 4,
-                  child: Text(
-                    job.type ?? '',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
-                      fontFamily: 'CenturyGothicBold',
-                      // fontWeight: FontWeight.bold,
+                        ],
+                      )),
+                  Expanded(flex: 1, child: Icon(Icons.navigate_next)),
+                ],
+              ),
+              SizedBox(
+                height: 2,
+              ),
+              Row(
+                children: [
+                  Expanded(flex: 1, child: Icon(Icons.query_builder)),
+                  Expanded(
+                    flex: 4,
+                    child: Text(
+                      job.type ?? '',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                        fontFamily: 'CenturyGothicBold',
+                        // fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(flex: 1, child: Icon(Icons.location_on)),
-                Expanded(
-                  flex: 4,
-                  child: Text(
-                    job.organisation!.location ?? '',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
-                      fontFamily: 'CenturyGothicBold',
-                      // fontWeight: FontWeight.bold,
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(flex: 1, child: Icon(Icons.location_on)),
+                  Expanded(
+                    flex: 4,
+                    child: Text(
+                      job.organisation!.location ?? '',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                        fontFamily: 'CenturyGothicBold',
+                        // fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 3,
-            ),
-          ]),
+                ],
+              ),
+              SizedBox(
+                height: 3,
+              ),
+            ]),
+          ),
         ),
       ),
     );

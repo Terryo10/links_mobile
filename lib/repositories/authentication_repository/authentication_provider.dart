@@ -60,7 +60,11 @@ class AuthenticationProvider {
         return response.body;
       } else {
         var data = jsonDecode(response.body);
-        throw Exception(data['message']);
+        if (data['errors'] != null) {
+          throw Exception(data['errors']);
+        } else {
+          throw Exception(data['message']);
+        }
       }
     } catch (e) {
       throw Exception(e.toString());
