@@ -62,43 +62,57 @@ class _SettingsPageState extends State<SettingsPage> {
                               builder: (context) => ChangePassword(),
                             ));
                       },
-                      child: Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          side: BorderSide(
-                            width: 2,
-                            color: Color(0xfff7892b),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                    flex: 3,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Change Password',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.black,
-                                            fontFamily: 'CenturyGothicBold',
-                                            // fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Expanded(
-                                    flex: 1, child: Icon(Icons.navigate_next)),
-                              ],
+                      child: Container(
+                        height: 70,
+                        child: Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            side: BorderSide(
+                              width: 0.5,
+                              color: Color(0xfff7892b),
                             ),
-                          ]),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: Column(children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                      child: SizedBox(
+                                    child: Icon(
+                                      Icons.lock,
+                                      color: Colors.purple,
+                                    ),
+                                  )),
+                                  Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Change Password',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.black,
+                                              fontFamily: 'CenturyGothicBold',
+                                              // fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.navigate_next,
+                                        color: Colors.purple,
+                                      )),
+                                ],
+                              ),
+                            ]),
+                          ),
                         ),
                       ),
                     ),
@@ -115,46 +129,58 @@ class _SettingsPageState extends State<SettingsPage> {
                                         userModel: user),
                                   ));
                             },
-                            child: Card(
-                              elevation: 2,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.0),
-                                side: BorderSide(
-                                  width: 2,
-                                  color: Color(0xfff7892b),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                          flex: 3,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Preview/Change Cv',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.black,
-                                                  fontFamily:
-                                                      'CenturyGothicBold',
-                                                  // fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          )),
-                                      Expanded(
-                                          flex: 1,
-                                          child: Icon(Icons.navigate_next)),
-                                    ],
+                            child: Container(
+                              height: 70,
+                              child: Card(
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  side: BorderSide(
+                                    width: 0.5,
+                                    color: Color(0xfff7892b),
                                   ),
-                                ]),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(18.0),
+                                  child: Column(children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                            flex: 1,
+                                            child: Icon(
+                                              Icons.description,
+                                              color: Colors.purple,
+                                            )),
+                                        Expanded(
+                                            flex: 3,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Preview/Change Cv',
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.black,
+                                                    fontFamily:
+                                                        'CenturyGothicBold',
+                                                    // fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            )),
+                                        Expanded(
+                                            flex: 1,
+                                            child: Icon(
+                                              Icons.navigate_next,
+                                              color: Colors.purple,
+                                            )),
+                                      ],
+                                    ),
+                                  ]),
+                                ),
                               ),
                             ),
                           );
@@ -176,46 +202,58 @@ class _SettingsPageState extends State<SettingsPage> {
                                     ),
                                   ));
                             },
-                            child: Card(
-                              elevation: 2,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.0),
-                                side: BorderSide(
-                                  width: 2,
-                                  color: Color(0xfff7892b),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                          flex: 3,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Preview/Change Cv',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.black,
-                                                  fontFamily:
-                                                      'CenturyGothicBold',
-                                                  // fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          )),
-                                      Expanded(
-                                          flex: 1,
-                                          child: Icon(Icons.navigate_next)),
-                                    ],
+                            child: Container(
+                              height: 70,
+                              child: Card(
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  side: BorderSide(
+                                    width: 0.5,
+                                    color: Color(0xfff7892b),
                                   ),
-                                ]),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(18.0),
+                                  child: Column(children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                            flex: 1,
+                                            child: Icon(
+                                              Icons.description,
+                                              color: Colors.purple,
+                                            )),
+                                        Expanded(
+                                            flex: 3,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Preview/Change Cv',
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.black,
+                                                    fontFamily:
+                                                        'CenturyGothicBold',
+                                                    // fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            )),
+                                        Expanded(
+                                            flex: 1,
+                                            child: Icon(
+                                              Icons.navigate_next,
+                                              color: Colors.purple,
+                                            )),
+                                      ],
+                                    ),
+                                  ]),
+                                ),
                               ),
                             ),
                           );
@@ -234,43 +272,59 @@ class _SettingsPageState extends State<SettingsPage> {
                               builder: (context) => UserAppliedJobs(),
                             ));
                       },
-                      child: Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          side: BorderSide(
-                            width: 2,
-                            color: Color(0xfff7892b),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                    flex: 3,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'My Applied Jobs',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.black,
-                                            fontFamily: 'CenturyGothicBold',
-                                            // fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Expanded(
-                                    flex: 1, child: Icon(Icons.navigate_next)),
-                              ],
+                      child: Container(
+                        height: 70,
+                        child: Container(
+                          child: Card(
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              side: BorderSide(
+                                width: 0.5,
+                                color: Color(0xfff7892b),
+                              ),
                             ),
-                          ]),
+                            child: Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: Column(children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                        flex: 1,
+                                        child: Icon(
+                                          Icons.important_devices,
+                                          color: Colors.purple,
+                                        )),
+                                    Expanded(
+                                        flex: 3,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'My Applied Jobs',
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.black,
+                                                fontFamily: 'CenturyGothicBold',
+                                                // fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                    Expanded(
+                                        flex: 1,
+                                        child: Icon(
+                                          Icons.navigate_next,
+                                          color: Colors.purple,
+                                        )),
+                                  ],
+                                ),
+                              ]),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -283,46 +337,123 @@ class _SettingsPageState extends State<SettingsPage> {
                               builder: (context) => SubscriptionStatusPage(),
                             ));
                       },
-                      child: Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          side: BorderSide(
-                            width: 2,
-                            color: Color(0xfff7892b),
+                      child: Container(
+                        height: 70,
+                        child: Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            side: BorderSide(
+                              width: 0.5,
+                              color: Color(0xfff7892b),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: Column(children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.attach_money,
+                                        color: Colors.purple,
+                                      )),
+                                  Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Subscription Status',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.black,
+                                              fontFamily: 'CenturyGothicBold',
+                                              // fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.navigate_next,
+                                        color: Colors.purple,
+                                      )),
+                                ],
+                              ),
+                            ]),
                           ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                    flex: 3,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Subscription Status',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.black,
-                                            fontFamily: 'CenturyGothicBold',
-                                            // fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Expanded(
-                                    flex: 1, child: Icon(Icons.navigate_next)),
-                              ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // UodateExpertisePage
+                        BlocProvider.of<AppliedjobsBloc>(context)
+                            .add(GetAppliedJobsEvent());
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UserAppliedJobs(),
+                            ));
+                      },
+                      child: Container(
+                        height: 70,
+                        child: Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            side: BorderSide(
+                              width: 0.5,
+                              color: Color(0xfff7892b),
                             ),
-                          ]),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: Column(children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.face_retouching_natural,
+                                        color: Colors.purple,
+                                      )),
+                                  Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Upload Photo',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.black,
+                                              fontFamily: 'CenturyGothicBold',
+                                              // fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.navigate_next,
+                                        color: Colors.purple,
+                                      )),
+                                ],
+                              ),
+                            ]),
+                          ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               );

@@ -51,6 +51,7 @@ class _JobsPageState extends State<JobsPage> {
         );
       },
       child: Container(
+        
         decoration: new BoxDecoration(
           boxShadow: [
             new BoxShadow(
@@ -60,12 +61,11 @@ class _JobsPageState extends State<JobsPage> {
           ],
         ),
         child: Card(
-          elevation: 2,
           shadowColor: Colors.black12,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.0),
+            borderRadius: BorderRadius.circular(0.5),
             side: BorderSide(
-              width: 2,
+              width: 0.5,
               color: Color(0xfff7892b),
             ),
           ),
@@ -130,9 +130,6 @@ class _JobsPageState extends State<JobsPage> {
                     ),
                   ),
                 ],
-              ),
-              SizedBox(
-                height: 3,
               ),
             ]),
           ),

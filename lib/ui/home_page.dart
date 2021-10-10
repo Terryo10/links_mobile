@@ -20,7 +20,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   FlutterSecureStorage storage = new FlutterSecureStorage();
-
+  String name = "";
+  String email = "";
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -50,13 +51,26 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              const DrawerHeader(
+              UserAccountsDrawerHeader(
+                accountName: Text('Oflutter.com'),
+                accountEmail: Text('example@gmail.com'),
+                currentAccountPicture: CircleAvatar(
+                  child: ClipOval(
+                    child: Image.network(
+                      'https://oflutter.com/wp-content/uploads/2021/02/girl-profile.png',
+                      fit: BoxFit.cover,
+                      width: 90,
+                      height: 90,
+                    ),
+                  ),
+                ),
                 decoration: BoxDecoration(
                   color: Color(0xfff7892b),
-                ),
-                child: Center(
-                  child: Text('Welcome To Links',
-                      style: TextStyle(color: Colors.white)),
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(
+                        'https://oflutter.com/wp-content/uploads/2021/02/profile-bg3.jpg'),
+                  ),
                 ),
               ),
               ListTile(
@@ -83,7 +97,11 @@ class _HomePageState extends State<HomePage> {
         ),
         body: BlocListener<UserBloc, UserState>(
           listener: (context, state) {
-            // TODO: implement listener
+            if (state is UserLoadedState) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  // ignore: unnecessary_null_comparison
+                  content: Text('Please Upload a photo on your profile ')));
+            }
           },
           child: BlocBuilder<UserBloc, UserState>(
             builder: (context, state) {
@@ -93,6 +111,10 @@ class _HomePageState extends State<HomePage> {
                 if (state.userModel.data!.expertise == null) {
                   //return expertise first
                   print('hapana expertise');
+                  setState(() {
+                    name = state.userModel.data!.name!;
+                    email = state.userModel.data!.name!;
+                  });
                   return ExpertiesPage();
                 }
                 if (state.userModel.data!.expertise != null &&
@@ -137,7 +159,6 @@ class _HomePageState extends State<HomePage> {
           textColor: Colors.white, // foreground
           onPressed: () {
             BlocProvider.of<CacheBloc>(context).add(AppStartedEvent());
-            
           },
           child: Text('Retry'),
         )),
