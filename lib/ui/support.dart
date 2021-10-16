@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tawk/flutter_tawk.dart';
+import 'package:kommunicate_flutter/kommunicate_flutter.dart';
+import 'package:links_app/ui/widgets/loader.dart';
 
 class SupportPage extends StatefulWidget {
   const SupportPage({Key? key}) : super(key: key);
@@ -9,31 +10,87 @@ class SupportPage extends StatefulWidget {
 }
 
 class _SupportPageState extends State<SupportPage> {
+  bool loading = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    launchChat();
+  }
+
+  void launchChat() async {
+    try {
+      dynamic conversationObject = {
+        'appId':
+            'f3c4c2f287ea7d5cff005b4e64bc1765' // The [APP_ID](https://dashboard.kommunicate.io/settings/install) obtained from kommunicate dashboard.
+      };
+      dynamic result =
+          await KommunicateFlutterPlugin.buildConversation(conversationObject);
+      setState(() {
+        loading = false;
+      });
+      print("Conversation builder success : " + result.toString());
+    } on Exception catch (e) {
+      print("Conversation builder error occurred : " + e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter Tawk'),
-        backgroundColor: Color(0XFFF7931E),
-        elevation: 0,
-      ),
-      body: Tawk(
-        directChatLink:
-            'https://tawk.to/chat/61636798157d100a41abba7c/1fhm4pbmg',
-        visitor: TawkVisitor(
-          name: 'Ayoub AMINE',
-          email: 'ayoubamine2a@gmail.com',
+        appBar: AppBar(
+          title: Text('links Support'),
+          backgroundColor: Color(0XFFF7931E),
+          elevation: 0,
         ),
-        onLoad: () {
-          print('Hello Tawk!');
-        },
-        onLinkTap: (String url) {
-          print(url);
-        },
-        placeholder: Center(
-          child: Text('Loading...'),
-        ),
-      ),
+        body: loading ? Loader() : rejoinConversation());
+  }
+
+  Widget rejoinConversation() {
+    return Center(
+      child: Padding(
+          padding: EdgeInsets.fromLTRB(8, 40, 8, 8),
+          child: Column(
+            children: <Widget>[
+              Text('Chat Ended'),
+              SizedBox(height: 15),
+              SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  launchChat();
+                  setState(() {
+                    loading = true;
+                  });
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            color: Colors.grey.shade200,
+                            offset: Offset(2, 4),
+                            blurRadius: 5,
+                            spreadRadius: 2)
+                      ],
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                  child: Text(
+                    'Re-Join Conversation ',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          )),
     );
   }
 }
+// f3c4c2f287ea7d5cff005b4e64bc1765 appID
+// 79PutByK65iPDzNpnoRUNIjVGs6Rg5Fl api key

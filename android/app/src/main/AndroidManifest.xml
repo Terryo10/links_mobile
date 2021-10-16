@@ -1,9 +1,13 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+ xmlns:tools="http://schemas.android.com/tools"  
+ xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.zw.links_app">
         <uses-permission android:name="android.permission.INTERNET" />
    <application
+        tools:replace="android:label"  
         android:label="Links"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:name="androidx.multidex.MultiDexApplication">
         
         <activity
             android:name=".MainActivity"

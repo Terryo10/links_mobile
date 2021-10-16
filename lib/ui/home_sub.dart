@@ -57,25 +57,33 @@ class _HomeSubState extends State<HomeSub> {
                 padding: EdgeInsets.zero,
                 children: [
                   UserAccountsDrawerHeader(
-                    accountName: Text('Oflutter.com'),
-                    accountEmail: Text('example@gmail.com'),
+                    accountName: BlocBuilder<UserBloc, UserState>(
+                      builder: (context, state) {
+                        if (state is UserLoadedState) {
+                          return Text(state.userModel.data!.name!);
+                        }
+                        return Text('Loading Name');
+                      },
+                    ),
+                    accountEmail: BlocBuilder<UserBloc, UserState>(
+                      builder: (context, state) {
+                        if (state is UserLoadedState) {
+                          return Text(state.userModel.data!.email!);
+                        }
+                        return Text('Loading Email');
+                      },
+                    ),
                     currentAccountPicture: CircleAvatar(
                       child: ClipOval(
-                        child: Image.network(
-                          'https://oflutter.com/wp-content/uploads/2021/02/girl-profile.png',
-                          fit: BoxFit.cover,
-                          width: 90,
+                        child: Image(
                           height: 90,
+                          width: 90,
+                          image: AssetImage('assets/placeholder.png'),
                         ),
                       ),
                     ),
                     decoration: BoxDecoration(
                       color: Color(0xfff7892b),
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(
-                            'https://oflutter.com/wp-content/uploads/2021/02/profile-bg3.jpg'),
-                      ),
                     ),
                   ),
                   ListTile(

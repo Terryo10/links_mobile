@@ -29,11 +29,16 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        multiDexEnabled true
         applicationId "co.zw.links_app"
-        minSdkVersion 18
+        minSdkVersion 20
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+    }
+
+    dependencies {
+    implementation 'com.android.support:multidex:2.0.1'
     }
 
     buildTypes {
