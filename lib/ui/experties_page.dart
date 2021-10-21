@@ -36,23 +36,44 @@ class _ExpertiesPageState extends State<ExpertiesPage> {
             return Loader();
           } else if (state is ExpertiseLoadedState) {
             return Scaffold(
-                floatingActionButton: FloatingActionButton(
-                  onPressed: () {
-                    if (selectedRadio.id == 0) {
-                      print('attempted to submit while nothing was selected');
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          // ignore: unnecessary_null_comparison
-                          content: Text('Please Select A Field')));
-                    } else {
-                      BlocProvider.of<ExpertiesBloc>(context).add(
-                          AssignExpertiesToUser(expertiesId: selectedRadio.id));
-                      print('the selected expertise is ${selectedRadio.id}');
-                    }
-                  },
-                  child: const Icon(Icons.add),
-                  backgroundColor: Color(0xfff7892b),
-                ),
-                body: buildList(expertiseListModel: state.expertiseListModel));
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  if (selectedRadio.id == 0) {
+                    print('attempted to submit while nothing was selected');
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        // ignore: unnecessary_null_comparison
+                        content: Text('Please Select A Field')));
+                  } else {
+                    BlocProvider.of<ExpertiesBloc>(context).add(
+                        AssignExpertiesToUser(expertiesId: selectedRadio.id));
+                    print('the selected expertise is ${selectedRadio.id}');
+                  }
+                },
+                child: const Icon(Icons.add),
+                backgroundColor: Color(0xfff7892b),
+              ),
+              body: Column(
+                children: [
+                  Container(
+                    height: 30.0,
+                    color: Colors.orange[100],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                            child: Text(
+                          "Please Select Expertise",
+                          style: TextStyle(fontSize: 18),
+                        )),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                      child: buildList(
+                          expertiseListModel: state.expertiseListModel)),
+                ],
+              ),
+            );
           } else if (state is ExpertiseErrorState) {
             return buildError(context,
                 message: state.message.replaceAll('Exception', ''));

@@ -28,4 +28,12 @@ class AppStrings {
   static String jobApplication = '/api/make_application/';
 
   static String changePassword = '/api/change_password';
+
+  static String createProfile = '/api/create_profile';
+
+  static String deleteProfile = '/api/delete_profile';
+
+  static String addToWishList = '/api/add_to_wishlist';
+
+  static String removeFromWishList = '/api/remove_from_wishlist';
 }

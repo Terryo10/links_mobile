@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:links_app/bloc/cache_bloc/cache_bloc.dart';
 import 'package:links_app/bloc/user_bloc/user_bloc.dart';
+import 'package:links_app/data/strings.dart';
 import 'package:links_app/ui/experties_page.dart';
 import 'package:links_app/ui/job_listing.dart';
 import 'package:links_app/ui/settings/settings.dart';
@@ -24,7 +26,7 @@ class _HomeSubState extends State<HomeSub> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 2,
+        length: 1,
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -48,7 +50,6 @@ class _HomeSubState extends State<HomeSub> {
               bottom: const TabBar(
                 tabs: [
                   Tab(text: "All Jobs"),
-                  Tab(text: "My WishList"),
                 ],
               ),
             ),
@@ -73,14 +74,42 @@ class _HomeSubState extends State<HomeSub> {
                         return Text('Loading Email');
                       },
                     ),
-                    currentAccountPicture: CircleAvatar(
-                      child: ClipOval(
-                        child: Image(
-                          height: 90,
-                          width: 90,
-                          image: AssetImage('assets/placeholder.png'),
-                        ),
-                      ),
+                    currentAccountPicture: BlocBuilder<UserBloc, UserState>(
+                      builder: (context, state) {
+                        if (state is UserLoadedState) {
+                          if (state.userModel.data!.profile == null) {
+                            return CircleAvatar(
+                              child: ClipOval(
+                                child: Image(
+                                  height: 90,
+                                  width: 90,
+                                  image: AssetImage('assets/placeholder.png'),
+                                ),
+                              ),
+                            );
+                          }
+                          return CircleAvatar(
+                            child: ClipOval(
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    "${AppStrings.baseUrl}/storage/product_images/${state.userModel.data!.profile!.imagePath}",
+                                fit: BoxFit.cover,
+                                width: 80,
+                                height: 80,
+                              ),
+                            ),
+                          );
+                        }
+                        return CircleAvatar(
+                          child: ClipOval(
+                            child: Image(
+                              height: 90,
+                              width: 90,
+                              image: AssetImage('assets/placeholder.png'),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     decoration: BoxDecoration(
                       color: Color(0xfff7892b),
@@ -112,10 +141,12 @@ class _HomeSubState extends State<HomeSub> {
               BlocListener<UserBloc, UserState>(
                 listener: (context, state) {
                   if (state is UserLoadedState) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        // ignore: unnecessary_null_comparison
-                        content:
-                            Text('Please Upload a photo on your profile ')));
+                    if (state.userModel.data!.profile == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          // ignore: unnecessary_null_comparison
+                          content:
+                              Text('Please Upload a photo on your profile ')));
+                    }
                   }
                 },
                 child: BlocBuilder<UserBloc, UserState>(
@@ -126,10 +157,7 @@ class _HomeSubState extends State<HomeSub> {
                       if (state.userModel.data!.expertise == null) {
                         //return expertise first
                         print('hapana expertise');
-                        setState(() {
-                          name = state.userModel.data!.name!;
-                          email = state.userModel.data!.name!;
-                        });
+
                         return ExpertiesPage();
                       }
                       if (state.userModel.data!.expertise != null &&
@@ -146,7 +174,6 @@ class _HomeSubState extends State<HomeSub> {
                   },
                 ),
               ),
-              Container()
             ])));
   }
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:links_app/models/applied_jobs_model/applied_jobs_model.dart';
 import 'package:links_app/models/jobs_model/jobs_model.dart';
@@ -33,6 +35,20 @@ class UserRepository {
       {required oldPassword, required newPassword}) async {
     var data = await provider.changePassword(
         oldPassword: oldPassword, newPassword: newPassword);
+    var model = messageModelFromJson(data);
+    return model;
+  }
+
+  Future<MessageModel> deleteProfile() async {
+    var data = await provider.deleteProfile();
+    var model = messageModelFromJson(data);
+    return model;
+  }
+
+  Future<MessageModel> createProfile(
+      {required String phoneNumber, required File image}) async {
+    var data = await provider.uploadProfile(
+        phoneNumber: phoneNumber, selectedfile: image);
     var model = messageModelFromJson(data);
     return model;
   }

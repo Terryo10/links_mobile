@@ -4,11 +4,13 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:links_app/bloc/applications_bloc/applications_bloc.dart';
 import 'package:links_app/bloc/applied_jobs_bloc/appliedjobs_bloc.dart';
 import 'package:links_app/bloc/authentication_bloc/authentication_bloc.dart';
+import 'package:links_app/bloc/bloc/profile_bloc.dart';
 import 'package:links_app/bloc/change_password_bloc/change_password_bloc.dart';
 import 'package:links_app/bloc/experties_bloc/experties_bloc.dart';
 import 'package:links_app/bloc/subscription_bloc/subscription_bloc.dart';
 import 'package:links_app/bloc/user_bloc/user_bloc.dart';
 import 'package:links_app/bloc/welcome_bloc/welcome_bloc.dart';
+import 'package:links_app/models/user_model/user_model.dart';
 import 'package:links_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:links_app/repositories/cache_repository/cache_repository.dart';
 import 'package:links_app/repositories/expertise_repository/experties_repository.dart';
@@ -98,6 +100,11 @@ class AppBlocs extends StatelessWidget {
             jobsRepository: RepositoryProvider.of<JobsRepository>(context),
           ),
         ),
+        BlocProvider(
+            create: (context) => ProfileBloc(
+                userBloc: BlocProvider.of<UserBloc>(context),
+                userRepository:
+                    RepositoryProvider.of<UserRepository>(context))),
       ],
       child: app,
     );

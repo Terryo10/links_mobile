@@ -52,7 +52,7 @@ class _SupportPageState extends State<SupportPage> {
           padding: EdgeInsets.fromLTRB(8, 40, 8, 8),
           child: Column(
             children: <Widget>[
-              Text('Chat Ended'),
+              Text('Welcome to support'),
               SizedBox(height: 15),
               SizedBox(
                 height: 10,
@@ -82,7 +82,7 @@ class _SupportPageState extends State<SupportPage> {
                           end: Alignment.centerRight,
                           colors: [Color(0xfffbb448), Color(0xfff7892b)])),
                   child: Text(
-                    'Re-Join Conversation ',
+                    'Click Here To Start Chat',
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),

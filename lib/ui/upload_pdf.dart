@@ -83,7 +83,7 @@ class _UploadPdFState extends State<UploadPdF> {
                   Padding(
                     padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                     child: Text(
-                      'Browse and upload your cv to procceed Max Size (10MB)',
+                      'Browse and upload your cv to procceed Max Size (10MB) PDF Only',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,

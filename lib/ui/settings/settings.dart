@@ -10,6 +10,7 @@ import 'package:links_app/ui/settings/change_password.dart';
 
 import 'package:links_app/ui/settings/preview_pdf.dart';
 import 'package:links_app/ui/settings/subscription_status_page.dart';
+import 'package:links_app/ui/settings/profile.dart';
 import 'package:links_app/ui/update_expertise.dart';
 import 'package:links_app/ui/upload_pdf.dart';
 import 'package:links_app/ui/user_applied_jobs.dart';
@@ -393,12 +394,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     GestureDetector(
                       onTap: () {
                         // UodateExpertisePage
-                        BlocProvider.of<AppliedjobsBloc>(context)
-                            .add(GetAppliedJobsEvent());
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => UserAppliedJobs(),
+                              builder: (context) => ProfilePage(),
                             ));
                       },
                       child: Container(
@@ -431,7 +430,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Upload Photo',
+                                            'View | Update Profile',
                                             style: TextStyle(
                                               fontSize: 20,
                                               color: Colors.black,
