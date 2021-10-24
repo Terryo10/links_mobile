@@ -26,7 +26,17 @@ class _SplashScreenState extends State<SplashScreen> {
               print('found token');
               return HomePage();
             }
-            return Container();
+            return Container(
+              child: Center(
+                child: Container(
+                  height: MediaQuery.of(context).size.width * 0.6,
+                  width: MediaQuery.of(context).size.height,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/links_splash_adobespark.png'))),
+                ),
+              ),
+            );
           },
         ),
       ),

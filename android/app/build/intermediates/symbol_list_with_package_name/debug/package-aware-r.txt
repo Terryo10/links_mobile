@@ -2070,6 +2070,7 @@ drawable km_video_play_icon
 drawable launch_background
 drawable layout_shadow_border
 drawable links_splash
+drawable links_splash_adobespark
 drawable locaiton
 drawable material_cursor_drawable
 drawable material_ic_calendar_black_24dp
